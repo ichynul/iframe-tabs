@@ -49,7 +49,7 @@ Add a lang config in `resources/lang/{zh-CN}/admin.php`
 
 ## Usage
 
-Open `http://localhost:802/admin/dashboard`
+Open `http://your-host/admin/dashboard`
 
 Thanks to https://github.com/bswsfhcw/AdminLTE-With-Iframe
 
