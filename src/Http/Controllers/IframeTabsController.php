@@ -43,6 +43,19 @@ class IframeTabsController extends Controller
         window.open_in_new = '{$open_in_new}';
         window.use_icon = {$use_icon};
 
+        if (!window.layer) {
+            window.layer = {
+                load: function () {
+                    var html = '<div style="z-index:999;margin:0 auto;position:fixed;top:90px;left:50%;" class="loading-message"><img src="/vendor/laravel-admin-ext/iframe-tabs/loading/loading-spinner-grey.gif" /></div>';
+                    $('.tab-content').append(html);
+                    return 0;
+                },
+                close: function (index) {
+                    $('.tab-content .loading-message').remove();
+                }
+            };
+        }
+
         $('body').on('click', '.sidebar-menu li a', function () {
             var url = $(this).attr('href');
             var index = $('.sidebar-menu li a').index(this);

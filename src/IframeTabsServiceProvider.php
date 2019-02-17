@@ -35,6 +35,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                 Admin::css('vendor/laravel-admin-ext/iframe-tabs/dashboard.css');
                 Admin::js('vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
                 Admin::js('vendor/laravel-admin-ext/iframe-tabs/sidebarMenu.js');
+                Admin::js(IframeTabs::config('layer_path', '/vendor/laravel-admin-ext/cropper/layer/layer.js'));
             } else {
                 Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
             }

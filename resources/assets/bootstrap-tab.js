@@ -115,8 +115,8 @@ var addTabs = function (options) {
             //iframe 加载完成事件
 
             $iframe.load(function () {
-                handleIframeContent(); //修正高度
                 layer.close(load_index);
+                handleIframeContent(); //修正高度
                 load_index = 0;
             });
 
