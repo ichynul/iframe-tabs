@@ -23,13 +23,6 @@ body,
     margin: 0;
 }
 
-.content-tabs {
-    border-bottom: solid 2px #e7ebee;
-    background: #fff !important;
-    border-top: none;
-    height: 41px;
-}
-
 .content-tabs .page-tabs a.active {
     background: whitesmoke;
     color: #fff !important;

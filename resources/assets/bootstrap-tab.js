@@ -1,3 +1,7 @@
+/*
+Thanks to https://github.com/bswsfhcw/AdminLTE-With-Iframe
+*/
+
 //保存页面id的field
 var pageIdField = "data-pageId";
 var load_index;
@@ -67,9 +71,7 @@ var addTabs = function (options) {
     var pageId = options.id;
     if (window.use_icon) {
         options.title = options.icon + options.title;
-    }
-    else
-    {
+    } else {
         options.title = '<i class="fa fa-fa-ban" style="visibility:hiden;" ></i>' + options.title;
     }
 
@@ -115,8 +117,8 @@ var addTabs = function (options) {
             //iframe 加载完成事件
 
             $iframe.load(function () {
-                layer.close(load_index);
                 handleIframeContent(); //修正高度
+                layer.close(load_index);
                 load_index = 0;
             });
 
@@ -681,11 +683,19 @@ $(function () {
                 refreshTabById(pageId);
 
             }
+        }, {
+            text: window.open_in_pop,
+            action: function (e, $selector, rightClickEvent) {
+                var pageId = getPageId(findTabElement(rightClickEvent.target));
+                var url = getTabUrlById(pageId);
+                var title = findTabTitle(pageId);
+                title = title ? title.text() : false;
+                window.openPop(url, title);
+            }
         },
         {
             text: window.open_in_new,
             action: function (e, $selector, rightClickEvent) {
-
                 var pageId = getPageId(findTabElement(rightClickEvent.target));
                 var url = getTabUrlById(pageId);
                 window.open(url);
@@ -693,5 +703,4 @@ $(function () {
             }
         }
     ]);
-
 });

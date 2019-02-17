@@ -33,7 +33,7 @@ Add a config in `config/admin.php`:
             'home_icon' => 'fa-home',
             // wheath show icon befor titles for all tab
             'use_icon' => true,
-            // layer.js path , if you do not user laravel-admin-ext\cropper , set another one
+            // layer.js path , if you do not use laravel-admin-ext\cropper , set another one
             'layer_path' => '/vendor/laravel-admin-ext/cropper/layer/layer.js'
         ]
     ],

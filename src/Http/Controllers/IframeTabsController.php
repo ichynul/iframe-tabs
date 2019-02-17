@@ -26,7 +26,7 @@ class IframeTabsController extends Controller
                 'close_other' => trans('admin.iframe_tabss.close_other'),
             ]
         ];
-        return view('iframe-tabs::index', $items);
+        return view('iframe-tabs::ext.index', $items);
     }
 
     public function dashboard(Content $content)
@@ -77,6 +77,7 @@ class IframeTabsController extends Controller
                 title: title,
                 anim: 2,
                 closeBtn: 1, 
+                shade: false,
                 maxmin: true, //开启最大化最小化按钮
                 area: ['90%', '90%'],
                 content: url,
