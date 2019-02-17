@@ -31,7 +31,7 @@ class IframeTabsServiceProvider extends ServiceProvider
             IframeTabs::routes(__DIR__ . '/../routes/web.php');
         });
         Admin::booted(function () {
-            if (\Request::route()->getName() == 'admin.dashboard') {
+            if (\Request::route()->getName() == 'admin.index') {
                 Admin::css('vendor/laravel-admin-ext/iframe-tabs/dashboard.css');
                 Admin::js('vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
                 Admin::js('vendor/laravel-admin-ext/iframe-tabs/sidebarMenu.js');

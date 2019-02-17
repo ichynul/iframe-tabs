@@ -1,6 +1,7 @@
 <?php
 
 use Ichynul\IframeTabs\Http\Controllers\IframeTabsController;
+use Ichynul\IframeTabs\IframeTabs;
 
-Route::get('/home', IframeTabsController::class . '@index')->name('admin.dashboard');
-Route::get('/dashboard', IframeTabsController::class . '@index')->name('admin.dashboard');
+Route::get('/', IframeTabsController::class . '@index')->name('admin.index');
+Route::get('/dashboard', IframeTabs::config('home_action', IframeTabsController::class . '@default'))->name('admin.dashboard');
