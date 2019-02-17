@@ -2,7 +2,7 @@
 
 ## Installation
 
-Then run :
+Run :
 
 ```
 $ composer require ichynul/iframe-tabs
