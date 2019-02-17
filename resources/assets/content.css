@@ -1,0 +1,13 @@
+.main-header,
+.main-sidebar {
+    display: none;
+}
+
+.wrapper .content-wrapper,
+.wrapper .main-footer {
+    margin-left: 0;
+}
+
+#pjax-container {
+    padding-top: 0;
+}
