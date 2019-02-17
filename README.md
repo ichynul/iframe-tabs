@@ -12,6 +12,8 @@ Then run:
 
 ```
 $ php artisan vendor:publish --provider=Ichynul\IframeTabs\IframeTabsServiceProvider
+
+$ php artisan admin:import iframe-tabs
 ```
 
 Add a config in `config/admin.php`:
