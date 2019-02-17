@@ -40,7 +40,7 @@ Add a config in `config/admin.php`:
 
 ```
 
-Edit exit menu `index`
+Edit existing menu `index`
 ```php
 [
     'title'     => 'Index',
