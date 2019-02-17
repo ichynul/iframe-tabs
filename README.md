@@ -51,6 +51,21 @@ Add a lang config in `resources/lang/{zh-CN}/admin.php`
 
 Open `http://your-host/admin/dashboard`
 
+To make sure open dashboard page after user login successed ,you need to edit `App\Admin\Controllers\AuthController.php` :
+    add line `protected $redirectTo = '/admin/dashboard'`;
+## Demo
+
+```php
+namespace App\Admin\Controllers;
+
+use Encore\Admin\Controllers\AuthController as BaseAuthController;
+
+class AuthController extends BaseAuthController
+{
+    protected $redirectTo = '/admin/dashboard';
+}
+```
+
 Thanks to https://github.com/bswsfhcw/AdminLTE-With-Iframe
 
 License
