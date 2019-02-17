@@ -2,16 +2,17 @@
 
 namespace Ichynul\IframeTabs\Http\Controllers;
 
+use Illuminate\Routing\Route;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
-use Illuminate\Routing\Controller;
 use Ichynul\IframeTabs\IframeTabs;
+use Illuminate\Routing\Controller;
 
 class IframeTabsController extends Controller
 {
-    public function index(Content $content)
+    public function index(Route $route)
     {
-        if (\Request::route()->getName() == 'admin.index') {
+        if ($route->getName() == 'admin.index') {
             $this->script();
         }
 
@@ -28,7 +29,7 @@ class IframeTabsController extends Controller
         return view('iframe-tabs::index', $items);
     }
 
-    public function default(Content $content)
+    public function dashboard(Content $content)
     {
         return $content
             ->header('Defautl page')
@@ -59,6 +60,7 @@ class IframeTabsController extends Controller
         $call_back = admin_base_path('configx/sort');
         $refresh_current = trans('admin.iframe_tabss.refresh_current');
         $open_in_new = trans('admin.iframe_tabss.open_in_new');
+        $open_in_pop = trans('admin.iframe_tabss.open_in_pop');
         $home_uri = IframeTabs::config('home_uri', '/admin/dashboard');
         $home_title = IframeTabs::config('home_title', 'Index');
         $home_icon = IframeTabs::config('home_icon', 'fa-home');
@@ -67,7 +69,19 @@ class IframeTabsController extends Controller
         $script = <<<EOT
         window.refresh_current = '{$refresh_current}';
         window.open_in_new = '{$open_in_new}';
+        window.open_in_pop = '{$open_in_pop}';
         window.use_icon = {$use_icon};
+        window.openPop = function(url,title){
+            layer.open({
+                type: 2,
+                title: title,
+                anim: 2,
+                closeBtn: 1, 
+                maxmin: true, //开启最大化最小化按钮
+                area: ['90%', '90%'],
+                content: url,
+              });
+        }
 
         if (!window.layer) {
             window.layer = {
@@ -78,21 +92,29 @@ class IframeTabsController extends Controller
                 },
                 close: function (index) {
                     $('.tab-content .loading-message').remove();
+                },
+                open : function()
+                {
+                    alert('layer.js dose not work.');
                 }
             };
         }
 
-        $('body').on('click', '.sidebar-menu li a', function () {
+        $('body').on('click', '.sidebar-menu li a,.navbar-nav li a', function () {
             var url = $(this).attr('href');
-            var index = $('.sidebar-menu li a').index(this);
             if (!url || url == '#') {
                 return;
             }
-            var icon = $(this).find('i.fa').prop("outerHTML");
+            var icon = '<i class="fa fa-edge"></i>';
+            if($(this).find('i.fa').size())
+            {
+                var icon = $(this).find('i.fa').prop("outerHTML");
+            }
+            var span = $(this).find('span');
             addTabs({
                 id: url.replace(/\W/g,'_'),
-                title: $(this).find('span').text(),
-                close: index!= 0,
+                title: span.size() ? span.text() : $(this).text().length ? $(this).text() : '*' ,
+                close: true,
                 url: url,
                 urlType: 'absolute',
                 icon : icon
@@ -110,6 +132,14 @@ class IframeTabsController extends Controller
                 urlType: 'absolute',
                 icon : '<i class="fa {$home_icon}"></i>'
             });
+        }
+        else 
+        {
+            if(/\/admin\/?$/i.test(location.href))
+            {
+                $('body').html('....');
+                location.href = '{$home_uri}';
+            }
         }
 EOT;
         Admin::script($script);
