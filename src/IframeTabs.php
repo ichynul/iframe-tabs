@@ -12,9 +12,11 @@ class IframeTabs extends Extension
 
     public $assets = __DIR__ . '/../resources/assets';
 
-    public $menu = [
-        'title' => 'Iframetabs',
-        'path' => 'iframe-tabs',
-        'icon' => 'fa-gears',
-    ];
+    /**
+     * {@inheritdoc}
+     */
+    public static function import()
+    {
+        parent::createPermission('Dashboard', 'tabs.dashboard', '/admin/dashboard');
+    }
 }
