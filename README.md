@@ -11,7 +11,7 @@ $ composer require ichynul/iframe-tabs
 Then run:
 
 ```
-$ php artisan vendor:publish --provider=Ichynul\IframeTabs\IframeTabsServiceProvider
+$ php artisan vendor:publish --tag=iframe-tabs
 
 $ php artisan admin:import iframe-tabs
 ```

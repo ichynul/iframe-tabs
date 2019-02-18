@@ -17,6 +17,6 @@ class IframeTabs extends Extension
      */
     public static function import()
     {
-        parent::createPermission('Tab-dashboard', 'tabs.dashboard', '/admin/dashboard');
+        parent::createPermission('Tab-dashboard', 'tabs.dashboard', 'dashboard');
     }
 }

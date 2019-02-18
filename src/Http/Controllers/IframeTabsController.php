@@ -57,7 +57,6 @@ class IframeTabsController extends Controller
 
     protected function script()
     {
-        $call_back = admin_base_path('configx/sort');
         $refresh_current = trans('admin.iframe_tabss.refresh_current');
         $open_in_new = trans('admin.iframe_tabss.open_in_new');
         $open_in_pop = trans('admin.iframe_tabss.open_in_pop');
