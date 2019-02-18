@@ -11,3 +11,13 @@
 #pjax-container {
     padding-top: 0;
 }
+
+#back-to-top {
+    position: fixed;
+    display: none;
+    bottom: 45px;
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    font-size: 18px;
+}

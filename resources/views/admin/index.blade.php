@@ -28,16 +28,35 @@
         {!! Admin::script() !!}
     </div>
     @include('admin::partials.footer')
-
+    <span id="back-to-top" class="fa fa-upload" title="Back to top"></span></p>
 </div>
 
 <script>
     function LA() {}
     LA.token = "{{ csrf_token() }}";
+
+    $(function () {
+        $(window).scroll(function(){
+            if ($(window).scrollTop() > 400){
+                $("#back-to-top").fadeIn(300);
+            }
+            else
+            {
+                $("#back-to-top").fadeOut(300);
+            }
+        });
+        $("#back-to-top").click(function(){
+            if ($('html').scrollTop()) {
+                $('html').animate({ scrollTop: 0 }, 300);
+                return false;
+            }
+            $('body').animate({ scrollTop: 0 }, 300);
+            return false;            
+        });       
+     });    
 </script>
 
 <!-- REQUIRED JS SCRIPTS -->
 {!! Admin::js() !!}
-
 </body>
 </html>

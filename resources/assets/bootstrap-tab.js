@@ -227,16 +227,20 @@ var closeCurrentTab = function () {
     }
 };
 
-function refreshTabById(pageId) {
+function refreshTabById(pageId, force) {
     var $iframe = findIframeById(pageId);
     var url = $iframe.attr('src');
 
-    if (url.indexOf(top.document.domain) < 0) {
-        $iframe.attr("src", url); // 跨域状况下，重新设置url
+    if (/^https?:/.test(url) && url.indexOf(top.document.domain) < 0) {
+        $iframe.attr("src", url); // 跨域状况下，重新设置url 刷新原始地址
     } else {
-        $iframe[0].contentWindow.location.reload(true); //带参数刷新
+        $f = $iframe[0];
+        if (force) {
+            $iframe.attr("src", url); //强制刷新到原始地址
+        } else {
+            $f.contentWindow.location.reload(true); //带参数刷新 当前页面 , url 可能与原始的有变化
+        }
     }
-
     if (!load_index) {
         load_index = layer.load(0, {
             shade: false
@@ -654,7 +658,7 @@ $(function () {
     $tabs.on("dblclick", ".menu_tab", function () {
         // console.log("dbclick");
         var pageId = getPageId(this);
-        refreshTabById(pageId);
+        refreshTabById(pageId, true);
     });
 
     //选项卡右键菜单

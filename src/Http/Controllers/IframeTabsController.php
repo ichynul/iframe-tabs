@@ -12,10 +12,7 @@ class IframeTabsController extends Controller
 {
     public function index(Route $route)
     {
-        if ($route->getName() == 'admin.index') {
-            $this->script();
-        }
-
+        $this->script();
         $items = [
             'header' => config('admin.name'),
             'trans' => [
@@ -86,9 +83,9 @@ class IframeTabsController extends Controller
         if (!window.layer) {
             window.layer = {
                 load: function () {
-                    var html = '<div style="z-index:999;margin:0 auto;position:fixed;top:90px;left:50%;" class="loading-message"><img src="/vendor/laravel-admin-ext/iframe-tabs/loading/loading-spinner-grey.gif" /></div>';
+                    var html = '<div style="z-index:999;margin:0 auto;position:fixed;top:90px;left:50%;" class="loading-message"><img src="/vendor/laravel-admin-ext/iframe-tabs/images/loading-spinner-grey.gif" /></div>';
                     $('.tab-content').append(html);
-                    return 0;
+                    return 1;
                 },
                 close: function (index) {
                     $('.tab-content .loading-message').remove();
