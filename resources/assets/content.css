@@ -15,7 +15,7 @@
 #back-to-top {
     position: fixed;
     display: none;
-    bottom: 45px;
+    bottom: 70px;
     right: 20px;
     z-index: 1000;
     cursor: pointer;
