@@ -28,7 +28,7 @@
         {!! Admin::script() !!}
     </div>
     @include('admin::partials.footer')
-    <span id="back-to-top" class="fa fa-upload" title="Back to top"></span></p>
+    <span id="back-to-top" class="fa fa-upload" title="Back to top" style="display:none;"></span>
 </div>
 
 <script>
