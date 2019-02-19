@@ -1,6 +1,6 @@
 {
     "name": "ichynul/iframe-tabs",
-    "description": "description...",
+    "description": "laravel-admin extension iframe-tabs",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
     "homepage": "https://github.com/laravel-admin-ext/iframe-tabs",
