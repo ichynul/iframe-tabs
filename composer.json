@@ -3,7 +3,7 @@
     "description": "laravel-admin extension iframe-tabs",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
-    "homepage": "https://github.com/laravel-admin-ext/iframe-tabs",
+    "homepage": "https://github.com/ichynul/iframe-tabs",
     "license": "MIT",
     "authors": [
         {
