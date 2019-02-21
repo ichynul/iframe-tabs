@@ -39,8 +39,7 @@ body,
 
 .content-tabs {
     position: relative;
-    height: 34px;
-    line-height: 29.5px;
+    height: 33px;
     background: #fafafa;
     border-bottom: solid 2px #2c3e50;
     font-size: 12px;
@@ -50,8 +49,6 @@ body,
 .content-tabs .roll-nav {
     position: absolute;
     width: 40px;
-    height: 29px;
-    line-height: 29.5px;
     text-align: center;
     color: #475059;
     z-index: 2;
@@ -71,8 +68,8 @@ body,
 .content-tabs button {
     background: #fff;
     border: 0;
-    height: 29px;
-    line-height: 29.5px;
+    height: 30px;
+    line-height: 30px;
     width: 40px;
     outline: 0;
 }
@@ -88,12 +85,17 @@ body,
 .content-tabs nav.page-tabs {
     margin-left: 40px;
     width: 100000px;
-    height: 34px;
+    height: 30px;
     overflow: hidden;
 }
 
 .content-tabs nav.page-tabs .page-tabs-content {
     float: left;
+}
+
+.page-tabs-content
+{
+    height: 30px;
 }
 
 .content-tabs .page-tabs a {
@@ -104,6 +106,8 @@ body,
     text-decoration: none;
     color: #475059;
     border-right: solid 1px #ddd;
+    height: 29px;
+    line-height: 29px;
 }
 
 .content-tabs .page-tabs a:first-child {
