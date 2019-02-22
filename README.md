@@ -16,6 +16,30 @@ $ php artisan vendor:publish --tag=iframe-tabs
 $ php artisan admin:import iframe-tabs
 ```
 
+## Update it
+
+(本扩展依赖一些js和css文件，composer update 若版本号有变请强制发布资源，可能是更新了某些样式)
+
+After `composer update` , if version of this extension changed :
+
+Run 
+
+```
+php artisan vendor:publish --tag=iframe-tabs --force
+```
+
+This will override css and js fiels to `/public/vendor/laravel-admin-ext/iframe-tabs/`
+
+Or you can and a script in `composer.json` :
+
+```json
+"scripts": {
+    "post-update-cmd": "php artisan vendor:publish --tag=iframe-tabs --force",
+}
+```
+
+## Usage
+
 Add a config in `config/admin.php`:
 
 ```php

@@ -41,9 +41,11 @@ body,
     position: relative;
     height: 33px;
     background: #fafafa;
-    border-bottom: solid 2px #2c3e50;
+    border-bottom: solid 1px #3c8dbc;
     font-size: 12px;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #3c8dbc;
+    margin-top: 1px;
+    padding-top: 1px;
 }
 
 .content-tabs .roll-nav {

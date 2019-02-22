@@ -97,7 +97,7 @@ class IframeTabsController extends Controller
             };
         }
 
-        $('body').on('click', '.sidebar-menu li a,.navbar-nav li a', function () {
+        $('body').on('click', '.sidebar-menu li a,.navbar-nav>li a', function () {
             var url = $(this).attr('href');
             if (!url || url == '#') {
                 return;
