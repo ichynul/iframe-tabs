@@ -7,6 +7,7 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use Ichynul\IframeTabs\IframeTabs;
 use Illuminate\Routing\Controller;
+use function GuzzleHttp\json_encode;
 
 class IframeTabsController extends Controller
 {
@@ -61,12 +62,15 @@ class IframeTabsController extends Controller
         $home_title = IframeTabs::config('home_title', 'Index');
         $home_icon = IframeTabs::config('home_icon', 'fa-home');
         $use_icon = IframeTabs::config('use_icon', true) ? 'true' : 'false';
+        $pass_urls = json_encode(IframeTabs::config('pass_urls', ['/admin/auth/logout']));
 
         $script = <<<EOT
         window.refresh_current = '{$refresh_current}';
         window.open_in_new = '{$open_in_new}';
         window.open_in_pop = '{$open_in_pop}';
         window.use_icon = {$use_icon};
+        window.pass_urls = JSON.parse('{$pass_urls}');
+
         window.openPop = function(url,title){
             layer.open({
                 type: 2,
@@ -102,6 +106,16 @@ class IframeTabsController extends Controller
             if (!url || url == '#') {
                 return;
             }
+            if(window.pass_urls)
+            {
+                for(var i in window.pass_urls)
+                {
+                    if(url.indexOf(window.pass_urls[i]) > -1)
+                    {
+                        return true;
+                    }
+                }
+            }
             var icon = '<i class="fa fa-edge"></i>';
             if($(this).find('i.fa').size())
             {
@@ -116,6 +130,11 @@ class IframeTabsController extends Controller
                 urlType: 'absolute',
                 icon : icon
             });
+
+            if($(this).parents('.dropdown').size())
+            {
+                $(this).parents('.dropdown').find('.dropdown-toggle').trigger('click');
+            }
             return false;
         });
         

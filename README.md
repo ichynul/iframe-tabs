@@ -18,11 +18,11 @@ $ php artisan admin:import iframe-tabs
 
 ## Update it
 
-(本扩展依赖一些js和css文件，composer update 若版本号有变请强制发布资源，可能是更新了某些样式)
+(本扩展依赖一些 js 和 css 文件，composer update 若版本号有变请强制发布资源，可能是更新了某些样式)
 
 After `composer update` , if version of this extension changed :
 
-Run 
+Run
 
 ```
 php artisan vendor:publish --tag=iframe-tabs --force
@@ -55,16 +55,26 @@ Add a config in `config/admin.php`:
             'home_title' => 'Home',
             // Default page tab-title icon
             'home_icon' => 'fa-home',
-            // wheath show icon befor titles for all tab
+            // Whether show icon befor titles for all tab
             'use_icon' => true,
             // layer.js path , if you do not use laravel-admin-ext\cropper , set another one
-            'layer_path' => '/vendor/laravel-admin-ext/cropper/layer/layer.js'
+            'layer_path' => '/vendor/laravel-admin-ext/cropper/layer/layer.js',
+            /**
+             * href links do not open in tab .
+             * selecter : .sidebar-menu li a,.navbar-nav>li a .
+             * if(href.indexOf(pass_urls[i]) > -1)
+             * {
+             *     //pass
+             * }
+             */
+            'pass_urls' => ['/admin/auth/logout', '/admin/auth/lock'],
         ]
     ],
 
 ```
 
 Edit existing menu `index`
+
 ```php
 [
     'title'     => 'Index',
