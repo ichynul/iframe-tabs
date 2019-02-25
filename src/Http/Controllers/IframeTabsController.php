@@ -7,7 +7,6 @@ use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use Ichynul\IframeTabs\IframeTabs;
 use Illuminate\Routing\Controller;
-use function GuzzleHttp\json_encode;
 
 class IframeTabsController extends Controller
 {

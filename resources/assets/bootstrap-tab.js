@@ -105,7 +105,8 @@ var addTabs = function (options) {
             //没有内容，使用IFRAME打开链接
             if (!load_index) {
                 load_index = layer.load(0, {
-                    shade: false
+                    shade: false,
+                    time: 6000
                 }); //0代表加载的风格，支持0-2
             }
             var $iframe = $("<iframe></iframe>").attr("src", options.url).css({
@@ -243,7 +244,8 @@ function refreshTabById(pageId, force) {
     }
     if (!load_index) {
         load_index = layer.load(0, {
-            shade: false
+            shade: false,
+            time: 6000
         }); //0代表加载的风格，支持0-2
     }
 }

@@ -57,6 +57,8 @@ Add a config in `config/admin.php`:
             'home_icon' => 'fa-home',
             // Whether show icon befor titles for all tab
             'use_icon' => true,
+            // dashboard css 
+            'tabs_css' =>'/vendor/laravel-admin-ext/iframe-tabs/dashboard.css',
             // layer.js path , if you do not use laravel-admin-ext\cropper , set another one
             'layer_path' => '/vendor/laravel-admin-ext/cropper/layer/layer.js',
             /**

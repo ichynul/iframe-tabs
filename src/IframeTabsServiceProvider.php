@@ -32,10 +32,10 @@ class IframeTabsServiceProvider extends ServiceProvider
         Admin::booted(function () {
             \View::prependNamespace('admin', __DIR__ . '/../resources/views/admin');
             //覆盖views，主要针对 index.blade.php,隐藏admin::partials.header(头部)和admin::partials.sidebar(菜单)
-            if (\Request::route()->getName() == 'admin.index') {
-                Admin::css('vendor/laravel-admin-ext/iframe-tabs/dashboard.css');
-                Admin::js('vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
-                Admin::js('vendor/laravel-admin-ext/iframe-tabs/sidebarMenu.js');
+            if (\Request::route()->getName() == 'iframes.index') {
+                Admin::css(IframeTabs::config('tabs_css', '/vendor/laravel-admin-ext/iframe-tabs/dashboard.css'));
+                Admin::js('/vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
+                Admin::js('/vendor/laravel-admin-ext/iframe-tabs/sidebarMenu.js');
                 Admin::js(IframeTabs::config('layer_path', '/vendor/laravel-admin-ext/cropper/layer/layer.js'));
             } else {
                 Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
@@ -44,3 +44,4 @@ class IframeTabsServiceProvider extends ServiceProvider
         });
     }
 }
+
