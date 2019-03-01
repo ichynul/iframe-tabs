@@ -75,21 +75,10 @@ Add a config in `config/admin.php`:
 
 ```
 
-Edit existing menu `index`
-
-```php
-[
-    'title'     => 'Index',
-    'icon'      => 'fa-bar-chart',
-    //'uri'       => '/', //old
-    'uri'       => '/admin/dashboard',   // new
-]
-```
-
 Add a lang config in `resources/lang/{zh-CN}/admin.php`
 
 ```php
-'iframe_tabss' => [
+'iframe_tabs' => [
     'oprations' => '页签操作',
     'refresh_current' => '刷新当前',
     'close_current' => '关闭当前',
@@ -99,6 +88,9 @@ Add a lang config in `resources/lang/{zh-CN}/admin.php`
     'open_in_pop' => '弹出窗打开'
 ],
 ```
+
+(旧版翻译`iframe_tabss`有手误，已改为`iframe_tabs`，升级后需要修改一下，不然翻译出不来。)
+(Laguage key`iframe_tabss` was wrong in old version ,need to changed it to `iframe_tabs`。)
 
 ## Usage
 
