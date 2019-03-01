@@ -19,7 +19,6 @@ class IframeTabs extends Extension
      */
     public static function import()
     {
-        \Log::info(trans('admin.iframe_tabss'));
         if ($menu = Menu::where('uri', '/')->first()) {
             $menu->update(['uri' => 'dashboard']);
         }
