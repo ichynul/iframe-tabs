@@ -221,3 +221,18 @@ body,
 .tab-pane {
     height: 100%;
 }
+
+.sidebar-menu .treeview ul.treeview-menu>li>a {
+    padding: 5px 5px 5px 2px;
+}
+
+.sidebar-menu .treeview ul.treeview-menu>li>a::before {
+    content: "---";
+}
+
+.sidebar-menu .treeview ul.treeview-menu>li::before {
+    content: "¦";
+    float: left;
+    margin-left: 20px;
+    color: #8aa4af;
+}
