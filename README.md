@@ -70,6 +70,8 @@ Add a config in `config/admin.php`:
              * }
              */
             'pass_urls' => ['/admin/auth/logout', '/admin/auth/lock'],
+            //When login session state of a tab-page was expired , force top-level window goto login page .
+            'force_login_in_top' => true
         ]
     ],
 
