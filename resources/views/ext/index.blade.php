@@ -110,7 +110,7 @@
                 close: false,
                 url: url,
                 urlType: 'absolute',
-                icon: '<i class="fa {$home_icon}"></i>'
+                icon: '<i class="fa ' + window.home_icon + '"></i>'
             });
         } else {
             if (/\/admin\/?$/i.test(location.href)) {
