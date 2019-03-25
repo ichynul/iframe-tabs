@@ -5,7 +5,6 @@ namespace Ichynul\IframeTabs;
 use Encore\Admin\Admin;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
-use Ichynul\IframeTabs\Middleware\ForceLogin;
 
 class IframeTabsServiceProvider extends ServiceProvider
 {
@@ -88,16 +87,5 @@ class IframeTabsServiceProvider extends ServiceProvider
         }
 EOT;
         Admin::script($script);
-    }
-
-    /**
-     * Register the Debugbar Middleware
-     *
-     * @param  string $middleware
-     */
-    protected function registerMiddleware($middleware)
-    {
-        $kernel = $this->app[Kernel::class];
-        $kernel->pushMiddleware($middleware);
     }
 }
