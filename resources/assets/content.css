@@ -8,6 +8,12 @@
     margin-left: 0;
 }
 
+.sidebar-mini.sidebar-collapse .wrapper .content-wrapper,
+.sidebar-mini.sidebar-collapse .wrapper .right-side,
+.sidebar-mini.sidebar-collapse .wrapper .main-footer {
+    margin-left: 0 !important;
+}
+
 #pjax-container {
     padding-top: 0;
 }
