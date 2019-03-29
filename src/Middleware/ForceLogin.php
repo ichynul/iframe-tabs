@@ -26,6 +26,7 @@ class ForceLogin
 
 EOT;
         $response->setContent(preg_replace('/<\/head>/i', $script . '</head>', $content));
+        \Session::forget('url.intended');
         return $response;
     }
 }
