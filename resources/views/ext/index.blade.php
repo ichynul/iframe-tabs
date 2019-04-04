@@ -105,7 +105,7 @@
         if (window == top) {
             var url = window.home_uri;
             addTabs({
-                id: url.replace(/\W/g, '_'),
+                id: '_admin_dashboard',
                 title: window.home_title,
                 close: false,
                 url: url,

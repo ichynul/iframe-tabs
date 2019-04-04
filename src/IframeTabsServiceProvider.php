@@ -55,6 +55,7 @@ class IframeTabsServiceProvider extends ServiceProvider
         $script = <<<EOT
 
         $('.wrapper').append('<span id="back-to-top" class="fa fa-upload" title="Back to top" style="display:none;"></span>');
+
         $(window).scroll(function() {
             if ($(window).scrollTop() > 400) {
                 $("#back-to-top").fadeIn(300);
@@ -85,6 +86,22 @@ class IframeTabsServiceProvider extends ServiceProvider
                 });
             });
         }
+        
+        $('body').on('click', '.breadcrumb li a', function() {
+            var url = $(this).attr('href');
+            if (/\/admin\/?$/i.test(url)) {
+                top.addTabs({
+                    id: '_admin_dashboard',
+                    title: top.home_title,
+                    close: false,
+                    url: url,
+                    urlType: 'absolute',
+                    icon: '<i class="fa ' + top.home_icon + '"></i>'
+                });
+                return false;
+            }
+        });
+        
 EOT;
         Admin::script($script);
     }
