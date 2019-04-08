@@ -71,7 +71,7 @@
             };
         }
 
-        $('body').on('click', '.sidebar-menu li a,.navbar-nav>li a', function() {
+        $('body').on('click', '.sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a', function() {
             var url = $(this).attr('href');
             if (!url || url == '#') {
                 return;
@@ -83,7 +83,7 @@
                     }
                 }
             }
-            var icon = '<i class="fa fa-edge"></i>';
+            var icon = '<i class="fa fa-file-text"></i>';
             if ($(this).find('i.fa').size()) {
                 var icon = $(this).find('i.fa').prop("outerHTML");
             }
@@ -102,13 +102,13 @@
             }
             return false;
         });
+
         if (window == top) {
-            var url = window.home_uri;
             addTabs({
                 id: '_admin_dashboard',
                 title: window.home_title,
                 close: false,
-                url: url,
+                url: window.home_uri,
                 urlType: 'absolute',
                 icon: '<i class="fa ' + window.home_icon + '"></i>'
             });
@@ -118,7 +118,12 @@
                 location.href = window.home_uri;
             }
         }
+
+        $('body').on('click', '.main-header a.logo', function() {
+            return false;
+        });
+
     });
 </script>
 
-@endsection 
+@endsection

@@ -56,7 +56,7 @@ var addTabs = function (options) {
     var defaultTabOptions = {
         id: Math.random() * 200,
         urlType: "relative",
-        title: "新页面",
+        title: "new-page",
         icon: ''
     };
 
