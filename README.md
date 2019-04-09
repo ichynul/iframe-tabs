@@ -60,7 +60,7 @@ Add a config in `config/admin.php`:
             // dashboard css 
             'tabs_css' =>'/vendor/laravel-admin-ext/iframe-tabs/dashboard.css',
             // layer.js path , if you do not use laravel-admin-ext\cropper , set another one
-            'layer_path' => '/vendor/laravel-admin-ext/cropper/layer/layer.js',
+            'layer_path' => '',
             /**
              * href links do not open in tab .
              * selecter : .sidebar-menu li a,.navbar-nav>li a .

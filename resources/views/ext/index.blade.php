@@ -50,8 +50,24 @@
                 closeBtn: 1,
                 shade: false,
                 maxmin: true, //开启最大化最小化按钮
-                area: ['90%', '90%'],
+                area: [$('#tab-content').width() + 'px', ($('#tab-content').height() - 5) + 'px'],
                 content: url,
+                offset: 'rb'
+            });
+        }
+
+        window.openTab = function(url, title, icon, page_id, close, urlType) {
+            if (!url) {
+                alert('url is empty.');
+                return;
+            }
+            top.addTabs({
+                id: page_id || url.replace(/\W/g, '_'),
+                title: title || 'New page',
+                close: close != false && close != 0,
+                url: url,
+                urlType: urlType || 'absolute',
+                icon: '<i class="fa ' + (icon || 'fa-file-text') + '"></i>'
             });
         }
 
@@ -122,7 +138,6 @@
         $('body').on('click', '.main-header a.logo', function() {
             return false;
         });
-
     });
 </script>
 
