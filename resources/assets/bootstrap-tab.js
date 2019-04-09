@@ -149,12 +149,8 @@ var handleIframeContent = function () {
 
     var $footer = $(".main-footer");
     var $header = $(".main-header");
-    var $tabs = $(".content-tabs");
 
     var height = getViewPort().height - $footer.outerHeight() - $header.outerHeight();
-    if ($tabs.is(":visible")) {
-        height = height - $tabs.outerHeight();
-    }
 
     $(".tab_iframe").css({
         height: height,

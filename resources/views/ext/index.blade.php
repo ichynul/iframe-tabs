@@ -1,30 +1,6 @@
 @extends('admin::index', ['header' => $header])
 
 @section('content')
-<div class="content-tabs">
-    <button class="roll-nav roll-left tabLeft" onclick="scrollTabLeft()">
-        <i class="fa fa-backward"></i>
-    </button>
-    <nav class="page-tabs menuTabs tab-ui-menu" id="tab-menu">
-        <div class="page-tabs-content" style="margin-left: 0px;">
-
-        </div>
-    </nav>
-    <button class="roll-nav roll-right tabRight" onclick="scrollTabRight()">
-        <i class="fa fa-forward" style="margin-left: 4px;"></i>
-    </button>
-    <div class="btn-group roll-nav roll-right">
-        <button class="dropdown tabClose" data-toggle="dropdown">
-            {{ $trans['oprations'] }}<i class="fa fa-caret-down" style="padding-left: 3px;"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-right" style="min-width: 128px;">
-            <li><a class="tabReload" href="javascript:refreshTab();">{{ $trans['refresh_current'] }}</a></li>
-            <li><a class="tabCloseCurrent" href="javascript:closeCurrentTab();">{{ $trans['close_current'] }}</a></li>
-            <li><a class="tabCloseAll" href="javascript:closeOtherTabs(true);">{{ $trans['close_all'] }}</a></li>
-            <li><a class="tabCloseOther" href="javascript:closeOtherTabs();">{{ $trans['close_other'] }}</a></li>
-        </ul>
-    </div>
-</div>
 <div class="content-iframe">
     <div class="tab-content " id="tab-content">
     </div>
@@ -61,7 +37,7 @@
                 alert('url is empty.');
                 return;
             }
-            top.addTabs({
+            addTabs({
                 id: page_id || url.replace(/\W/g, '_'),
                 title: title || 'New page',
                 close: close != false && close != 0,
@@ -89,7 +65,7 @@
 
         $('body').on('click', '.sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a', function() {
             var url = $(this).attr('href');
-            if (!url || url == '#') {
+            if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
                 return;
             }
             if (window.pass_urls) {
@@ -137,6 +113,20 @@
 
         $('body').on('click', '.main-header a.logo', function() {
             return false;
+        });
+
+        $('.content-tabs').css('width', $('#app').width() - $('.navbar-custom-menu').width() - 55);
+
+        $('.navbar-custom-menu').show();
+        
+        if (!$(".navbar-custom-menu>ul>*:first").hasClass('tab-options')) {
+            $(".navbar-custom-menu>ul>*:first").before($('.navbar-custom-menu>ul>li.tab-options'));
+        }
+
+        $(window).resize(function() {
+            setTimeout(function() {
+                $('.content-tabs').css('width', $('#app').width() - $('.navbar-custom-menu').width() - 55);
+            }, 500);
         });
     });
 </script>

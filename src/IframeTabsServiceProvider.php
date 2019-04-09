@@ -3,7 +3,6 @@
 namespace Ichynul\IframeTabs;
 
 use Encore\Admin\Admin;
-use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
 
 class IframeTabsServiceProvider extends ServiceProvider

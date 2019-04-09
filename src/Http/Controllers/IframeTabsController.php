@@ -2,6 +2,7 @@
 
 namespace Ichynul\IframeTabs\Http\Controllers;
 
+use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
 use Ichynul\IframeTabs\IframeTabs;
 use Illuminate\Routing\Controller;
@@ -20,6 +21,8 @@ class IframeTabsController extends Controller
                 'close_other' => trans('admin.iframe_tabs.close_other'),
                 'open_in_new' => trans('admin.iframe_tabs.open_in_new'),
                 'open_in_pop' => trans('admin.iframe_tabs.open_in_pop'),
+                'scroll_left' => trans('admin.iframe_tabs.scroll_left'),
+                'scroll_right' => trans('admin.iframe_tabs.scroll_right'),
             ],
             'home_uri' => IframeTabs::config('home_uri', '/admin/dashboard'),
             'home_title' => IframeTabs::config('home_title', 'Index'),
@@ -27,6 +30,12 @@ class IframeTabsController extends Controller
             'use_icon' => IframeTabs::config('use_icon', true) ? '1' : '',
             'pass_urls' => implode(',', IframeTabs::config('pass_urls', ['/admin/auth/logout'])),
         ];
+
+        Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) use ($items) {
+            $navbar->left(view('iframe-tabs::ext.tabs'));
+            $navbar->right(view('iframe-tabs::ext.options', $items));
+        });
+
         return view('iframe-tabs::ext.index', $items);
     }
 

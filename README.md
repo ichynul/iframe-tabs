@@ -16,6 +16,11 @@ $ php artisan vendor:publish --tag=iframe-tabs
 $ php artisan admin:import iframe-tabs
 ```
 
+## 1.0.28
+新版本1.0.28布局改动较大，更新版本后记得强制发布资源 
+
+The layout of the new version 1.0.28 has changed a lot. After updating the version, remember to force release resources.
+
 ## Update it
 
 (本扩展依赖一些 js 和 css 文件，composer update 若版本号有变请强制发布资源，可能是更新了某些样式)
@@ -87,12 +92,12 @@ Add a lang config in `resources/lang/{zh-CN}/admin.php`
     'close_all' => '关闭全部',
     'close_other' => '关闭其他',
     'open_in_new' => '新窗口打开',
-    'open_in_pop' => '弹出窗打开'
+    'open_in_pop' => '弹出窗打开',
+    'scroll_left' => '滚动到最左',
+    'scroll_right' => '滚动到最右'
 ],
 ```
-
-(旧版翻译`iframe_tabss`有手误，已改为`iframe_tabs`，升级后需要修改一下，不然翻译出不来。)
-(Laguage key`iframe_tabss` was wrong in old version ,need to changed it to `iframe_tabs`。)
+`scroll_left`,`scroll_left` 为新版本1.0.28增加(Added in new version since 1.0.28)
 
 ## Usage
 
