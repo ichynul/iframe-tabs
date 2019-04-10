@@ -78,11 +78,12 @@ body,
 .content-tabs .page-tabs a {
     display: block;
     float: left;
-    padding: 0 7px;
+    padding: 0 4px;
     text-decoration: none;
     color: #fff;
     height: 100%;
-    line-height: 36px;
+    line-height: 30px;
+    margin: 0 3px;
 }
 
 .content-tabs .page-tabs a.active {
@@ -90,8 +91,16 @@ body,
     color: #888 !important;
 }
 
+.content-tabs .page-tabs a.active:hover {
+    border-bottom: none;
+}
+
+.content-tabs .page-tabs a:hover {
+    border-bottom: 1px solid #f6f6f6;
+}
+
 .content-tabs .page-tabs a.active i {
-    color: #888 !important;
+    color: #555 !important;
 }
 
 .content-tabs .page-tabs a:first-child {
@@ -106,12 +115,8 @@ body,
     margin-left: 7px;
 }
 
-.content-tabs .page-tabs a i:hover {
+.content-tabs .page-tabs a i.page_tab_close:hover {
     color: rgb(175, 52, 52) !important;
-}
-
-.content-tabs .page-tabs a.active i:hover {
-    color: #fff !important;
 }
 
 .roll-right.tabRight {

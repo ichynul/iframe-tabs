@@ -29,6 +29,7 @@ class IframeTabsController extends Controller
             'home_icon' => IframeTabs::config('home_icon', 'fa-home'),
             'use_icon' => IframeTabs::config('use_icon', true) ? '1' : '',
             'pass_urls' => implode(',', IframeTabs::config('pass_urls', ['/admin/auth/logout'])),
+            'iframes_index' => url('/' . trim(config('admin.route.prefix'), '/'))
         ];
 
         Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) use ($items) {

@@ -91,7 +91,7 @@ class IframeTabsServiceProvider extends ServiceProvider
         
         $('body').on('click', '.breadcrumb li a', function() {
             var url = $(this).attr('href');
-            if (/\/admin\/?$/i.test(url)) {
+            if (url == top.iframes_index) {
                 top.addTabs({
                     id: '_admin_dashboard',
                     title: top.home_title,
