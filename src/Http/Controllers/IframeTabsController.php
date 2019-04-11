@@ -12,7 +12,7 @@ class IframeTabsController extends Controller
     public function index()
     {
         $items = [
-            'header' => config('admin.name'),
+            'header' => '',
             'trans' => [
                 'oprations' => trans('admin.iframe_tabs.oprations'),
                 'refresh_current' => trans('admin.iframe_tabs.refresh_current'),

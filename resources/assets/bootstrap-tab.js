@@ -419,6 +419,16 @@ function activeTabByPageId(pageId) {
     findTabPanel(pageId).addClass("active");
     // scrollToTab($('.menu_tab.active'));
     scrollToTab($title[0]);
+
+    var titel_text = $('head title').text();
+
+    if (/\|/.test(titel_text)) {
+        titel_text = titel_text.replace(/\|.+$/, '| ' + $title.text());
+    }
+    else {
+        titel_text += ' | ' + $title.text();
+    }
+    $('head title').text(titel_text);
 }
 
 /*
