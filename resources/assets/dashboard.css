@@ -25,29 +25,13 @@ body,
 
 .content-tabs {
     position: relative;
-    height: 36px;
+    height: 40px;
     font-size: 12px;
     display: block;
     float: left;
     overflow: hidden;
-    top: 7px;
+    top: 5px;
     width: 70%;
-}
-.roll-nav {
-    position: absolute;
-    width: 36px;
-    text-align: center;
-    color: #475059;
-    z-index: 2;
-    top: 0;
-}
-
-.content-tabs .roll-left {
-    left: 0;
-}
-
-.content-tabs .roll-right {
-    right: 0;
 }
 
 .content-tabs button {
@@ -82,21 +66,19 @@ body,
     text-decoration: none;
     color: #fff;
     height: 100%;
-    line-height: 30px;
+    line-height: 40px;
     margin: 0 3px;
 }
 
-.content-tabs .page-tabs a.active {
+.content-tabs .page-tabs a.active,
+.content-tabs .page-tabs a.active:hover {
     background: #f6f6f6;
     color: #888 !important;
 }
 
-.content-tabs .page-tabs a.active:hover {
-    border-bottom: none;
-}
-
 .content-tabs .page-tabs a:hover {
-    border-bottom: 1px solid #f6f6f6;
+    background: rgba(0, 0, 0, 0.1);
+    color: #f6f6f6;
 }
 
 .content-tabs .page-tabs a.active i {
@@ -114,22 +96,36 @@ body,
     color: #fff;
     margin-left: 7px;
 }
+.main-header .navbar .tab-options .dropdown-menu li a {
+    color: #666666 !important;
+}
 
 .content-tabs .page-tabs a i.page_tab_close:hover {
     color: rgb(175, 52, 52) !important;
 }
 
-.roll-right.tabRight {
-    right: -36px;
+.content-tabs-divider {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-right: 1px dashed rgba(255, 255, 255, 0.6);
+    display: block;
+    height: 100%;
+    width: 14px;
+    z-index: 999;
 }
 
 .roll-right.btn-group {
     right: 0;
     width: 80px;
     padding: 0;
-    height: 36px;
-    top: 7px;
+    height: 50px;
     border: none;
+}
+
+.tab-options .dropdown-menu {
+    min-width: auto;
+    width: auto;
 }
 
 .roll-right.btn-group button {
@@ -203,12 +199,20 @@ body,
     color: #8aa4af;
 }
 
-.dropdown-menu.dropdown-context
-{
+.dropdown-menu.dropdown-context {
     z-index: 1040;
 }
 
-.navbar-custom-menu 
-{
+.navbar-custom-menu {
     display: none;
+}
+
+.navbar-nav > li > a {
+    padding: 0 7px !important;
+    line-height: 40px !important;
+    margin-top: 5px;
+}
+
+.navbar-nav > .user-menu .user-image {
+    margin-top: 7px !important;
 }

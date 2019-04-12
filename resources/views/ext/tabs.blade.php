@@ -3,4 +3,5 @@
         <div class="page-tabs-content" style="margin-left: 0px;">
         </div>
     </nav>
+    <div class="content-tabs-divider"></div>
 </div>

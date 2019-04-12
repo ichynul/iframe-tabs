@@ -118,6 +118,8 @@
 
         $('.content-tabs').css('width', $('#app').width() - $('.navbar-custom-menu').width() - 55);
 
+        $('.content-tabs-divider').css('background-color', $('.main-header .navbar').css('background-color'));
+
         $('.navbar-custom-menu').show();
 
         if (!$(".navbar-custom-menu>ul>*:first").hasClass('tab-options')) {
