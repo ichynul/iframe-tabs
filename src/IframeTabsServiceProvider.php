@@ -82,7 +82,7 @@ class IframeTabsServiceProvider extends ServiceProvider
         if($('#terminal-box').size())
         {
             // fix laravel-admin-extensions/helpers terminal
-            $(document).ready(function(){
+            $(window).load(function(){
                 $('#terminal-box,.slimScrollDiv').css({
                     height: $('#pjax-container').height() - 247 +'px'
                 });
