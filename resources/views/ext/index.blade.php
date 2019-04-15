@@ -120,7 +120,7 @@
 
         $('.content-tabs-divider').css('background-color', $('.main-header .navbar').css('background-color'));
 
-        $('.navbar-custom-menu').show();
+        $('.navbar-custom-menu,.content-tabs-divider').show();
 
         if (!$(".navbar-custom-menu>ul>*:first").hasClass('tab-options')) {
             $(".navbar-custom-menu>ul>*:first").before($('.navbar-custom-menu>ul>li.tab-options'));

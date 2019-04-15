@@ -113,6 +113,7 @@ body,
     height: 100%;
     width: 14px;
     z-index: 999;
+    display: none;
 }
 
 .roll-right.btn-group {
