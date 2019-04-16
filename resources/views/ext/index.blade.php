@@ -116,8 +116,6 @@
             return false;
         });
 
-        $('.content-tabs').css('width', $('.main-header').width() - $('.main-header .logo').width() - $('.navbar-custom-menu').width() - 80);
-
         $('.content-tabs-divider,.navbar-custom-menu').css('background-color', $('.main-header .navbar').css('background-color'));
 
         $('.navbar-custom-menu,.content-tabs-divider').show();

@@ -24,14 +24,14 @@ body,
 }
 
 .content-tabs {
-    position: relative;
+    position: absolute;
     height: 40px;
     font-size: 12px;
     display: block;
     float: left;
     overflow: hidden;
     top: 5px;
-    width: 70%;
+    left: 42px;
 }
 
 .content-tabs button {
@@ -82,7 +82,7 @@ body,
 }
 
 .content-tabs .page-tabs a.active i {
-    color: #555 !important;
+    color: #999 !important;
 }
 
 .content-tabs .page-tabs a:first-child {
@@ -206,12 +206,23 @@ body,
 
 .navbar-custom-menu {
     display: none;
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    height: 100%;
 }
 
 .navbar-nav > li > a {
     padding: 0 7px !important;
     line-height: 40px !important;
-    margin-top: 5px;
+}
+
+.navbar-custom-menu .navbar-nav
+{
+    position: relative;
+    top: 5px;
+    padding-left: 5px;
+    border-left: 1px dashed rgba(255, 255, 255, 0.6);
 }
 
 .navbar-nav > .user-menu .user-image {
