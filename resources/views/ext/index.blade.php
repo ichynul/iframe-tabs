@@ -128,6 +128,10 @@
             adjust();
         });
 
+        $(window).resize(function() {
+            adjust();
+        });
+
         adjust();
     });
 
