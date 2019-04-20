@@ -289,9 +289,8 @@ var scrollToTab = function (element) {
     var marginLeftVal = calSumWidth($(element).prevAll()), //前面所有tab的总宽度
         marginRightVal = calSumWidth($(element).nextAll()); //后面所有tab的总宽度
     //一些按钮(向左,向右滑动)的总宽度
-    var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".menuTabs"));
     // tab(a标签)显示区域的总宽度
-    var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
+    var visibleWidth = $('.navbar.navbar-static-top').outerWidth() - window.tabs_left - $('.navbar-custom-menu').outerWidth();
     //将要滚动的长度
     var scrollVal = 0;
     if ($(".page-tabs-content").outerWidth() < visibleWidth) {
@@ -320,8 +319,7 @@ var scrollToTab = function (element) {
 //滚动条滚动到左边
 var scrollTabLeft = function () {
     var marginLeftVal = Math.abs(parseInt($('.page-tabs-content').css('margin-left')));
-    var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".menuTabs"));
-    var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
+    var visibleWidth = $('.navbar.navbar-static-top').outerWidth() - window.tabs_left - $('.navbar-custom-menu').outerWidth();
     var scrollVal = 0;
     if ($(".page-tabs-content").width() < visibleWidth) {
         return false;
@@ -348,8 +346,7 @@ var scrollTabLeft = function () {
 //滚动条滚动到右边
 var scrollTabRight = function () {
     var marginLeftVal = Math.abs(parseInt($('.page-tabs-content').css('margin-left')));
-    var tabOuterWidth = calSumWidth($(".content-tabs").children().not(".menuTabs"));
-    var visibleWidth = $(".content-tabs").outerWidth(true) - tabOuterWidth;
+    var visibleWidth = $('.navbar.navbar-static-top').outerWidth() - window.tabs_left - $('.navbar-custom-menu').outerWidth();
     var scrollVal = 0;
     if ($(".page-tabs-content").width() < visibleWidth) {
         return false;
@@ -401,14 +398,24 @@ var closeOtherTabs = function (isAll) {
             var $a = $(this);
             var pageId = getPageId($a);
             closeTabOnly(pageId);
-
             // closeTab($a);
             /*$('#' + $(this).data('id')).remove();
              $(this).remove();*/
         });
-
+        var firstChild = $(".page-tabs-content").children().eq(0); //选中那些删不掉的第一个菜单
+        if (firstChild) {
+            //激活这个选项卡
+            scrollToTab(firstChild);
+            /*$('#' + firstChild.data('id')).addClass('active');
+             firstChild.addClass('active');*/
+        }
     }
 };
+
+function scrollTabCurrent() {
+    var pageId = getActivePageId();
+    scrollToTab(pageId);
+}
 
 //激活Tab,通过id
 function activeTabByPageId(pageId) {

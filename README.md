@@ -76,7 +76,9 @@ Add a config in `config/admin.php`:
              */
             'pass_urls' => ['/admin/auth/logout', '/admin/auth/lock'],
             //When login session state of a tab-page was expired , force top-level window goto login page .
-            'force_login_in_top' => true
+            'force_login_in_top' => true,
+            //tabs left offset
+            'tabs_left'  => 42,
         ]
     ],
 
@@ -94,10 +96,10 @@ Add a lang config in `resources/lang/{zh-CN}/admin.php`
     'open_in_new' => '新窗口打开',
     'open_in_pop' => '弹出窗打开',
     'scroll_left' => '滚动到最左',
-    'scroll_right' => '滚动到最右'
+    'scroll_right' => '滚动到最右',
+    'scroll_current' => '滚动到当前'
 ],
 ```
-`scroll_left`,`scroll_left` 为新版本1.0.28增加(Added in new version since 1.0.28)
 
 ## Usage
 

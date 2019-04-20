@@ -9,5 +9,6 @@
         <li><a class="tabCloseOther" href="javascript:;" onclick="closeOtherTabs();">{{ $trans['close_other'] }}</a></li>
         <li><a class="tabscrollLeft" href="javascript:;" onclick="scrollTabLeft();">{{ $trans['scroll_left'] }}</a></li>
         <li><a class="tabscrollRight" href="javascript:;" onclick="scrollTabRight();">{{ $trans['scroll_right'] }}</a></li>
+        <li><a class="tabscrollRight" href="javascript:;" onclick="scrollTabCurrent();">{{ $trans['scroll_current'] }}</a></li>
     </ul>
 </li>
