@@ -117,9 +117,9 @@
             return false;
         });
 
-        $('.content-tabs-divider,.navbar-custom-menu').css('background-color', $('.main-header .navbar').css('background-color'));
+        $('.navbar-custom-menu').css('background-color', $('.main-header .navbar').css('background-color'));
 
-        $('.navbar-custom-menu,.content-tabs-divider').show();
+        $('.navbar-custom-menu').show(); // delete it in future
 
         if (!$(".navbar-custom-menu>ul>*:first").hasClass('tab-options')) {
             $(".navbar-custom-menu>ul>*:first").before($('.navbar-custom-menu>ul>li.tab-options'));

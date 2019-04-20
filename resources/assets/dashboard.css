@@ -205,7 +205,6 @@ body,
 }
 
 .navbar-custom-menu {
-    display: none;
     z-index: 999;
     position: absolute;
     right: 0;
