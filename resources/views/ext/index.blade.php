@@ -70,6 +70,15 @@
             if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
                 return;
             }
+
+            if ($(this).attr('target') == '_blank') {
+                return;
+            }
+
+            if ($(this).hasClass('iframes-pass-url')) {
+                return;
+            }
+
             if (window.pass_urls) {
                 for (var i in window.pass_urls) {
                     if (url.indexOf(window.pass_urls[i]) > -1) {
