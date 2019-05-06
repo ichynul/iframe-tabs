@@ -29,27 +29,30 @@ class IframeTabsServiceProvider extends ServiceProvider
             IframeTabs::routes(__DIR__ . '/../routes/web.php');
         });
 
-        Admin::booted(function () {
-            if (\Request::route()->getName() == 'iframes.index') {
-                //Override view index hide partials.footer
-                \View::prependNamespace('admin', __DIR__ . '/../resources/views/index');
-                // add script ands css
-                Admin::css(IframeTabs::config('tabs_css', '/vendor/laravel-admin-ext/iframe-tabs/dashboard.css'));
-                Admin::js('/vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
-                Admin::js('/vendor/laravel-admin-ext/iframe-tabs/sidebarMenu.js');
-                $layer_path = IframeTabs::config('layer_path', '');
-                if ($layer_path) {
-                    Admin::js($layer_path);
+        if(!$this->app->runningInConsole())
+        {
+            Admin::booted(function () {
+                if (\Request::route()->getName() == 'iframes.index') {
+                    //Override view index hide partials.footer
+                    \View::prependNamespace('admin', __DIR__ . '/../resources/views/index');
+                    // add script ands css
+                    Admin::css(IframeTabs::config('tabs_css', '/vendor/laravel-admin-ext/iframe-tabs/dashboard.css'));
+                    Admin::js('/vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
+                    Admin::js('/vendor/laravel-admin-ext/iframe-tabs/sidebarMenu.js');
+                    $layer_path = IframeTabs::config('layer_path', '');
+                    if ($layer_path) {
+                        Admin::js($layer_path);
+                    }
+                } else {
+                    //Override view content hide partials.header and partials.sidebar
+                    \View::prependNamespace('admin', __DIR__ . '/../resources/views/content');
+                    //Override content style ,reset style of '#pjax-container' margin-left:0
+                    Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
+                    //add scritp 'Back to top' in content 
+                    $this->contentScript();
                 }
-            } else {
-                //Override view content hide partials.header and partials.sidebar
-                \View::prependNamespace('admin', __DIR__ . '/../resources/views/content');
-                //Override content style ,reset style of '#pjax-container' margin-left:0
-                Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
-                //add scritp 'Back to top' in content 
-                $this->contentScript();
-            }
-        });
+            });
+        }
     }
 
     protected function contentScript()
