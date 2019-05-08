@@ -33,21 +33,26 @@ class IframeTabsServiceProvider extends ServiceProvider
         });
 
         Admin::booting(function () {
-            
             Admin::js('/vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
-
-            $layer_path = IframeTabs::config('layer_path', '');
-            if ($layer_path) {
-                Admin::js($layer_path);
-            }
         });
 
         if (!$this->app->runningInConsole()) {
 
             Admin::booted(function () {
-                if ($this->isMinify()) {
 
+                $isMinify = $this->isMinify();
+
+                if ($isMinify) {
                     $this->fixMinify();
+                }
+
+                $layer_path = IframeTabs::config('layer_path', '');
+                if ($layer_path) {
+                    Admin::js($layer_path);
+
+                    if ($isMinify) {
+                        Admin::css(preg_replace('/^(.+)layer\.js.*$/i', '$1theme/default/layer.css?v=iframe-tabs', $layer_path));
+                    }
                 }
 
                 if (\Request::route()->getName() == 'iframes.index') {
@@ -64,6 +69,8 @@ class IframeTabsServiceProvider extends ServiceProvider
                     //Override content style ,reset style of '#pjax-container' margin-left:0
                     Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
                 }
+
+                config(['admin.minify_assets' => false]);
             });
         }
     }
@@ -74,8 +81,6 @@ class IframeTabsServiceProvider extends ServiceProvider
 
         Admin::js($this->getManifestData('js'));
         Admin::css($this->getManifestData('css'));
-
-        config(['admin.minify_assets' => false]);
     }
 
     protected function isMinify()
