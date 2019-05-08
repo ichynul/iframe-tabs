@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider;
 
 class IframeTabsServiceProvider extends ServiceProvider
 {
+    public static $manifestData = [];
+
     /**
      * {@inheritdoc}
      */
@@ -25,62 +27,144 @@ class IframeTabsServiceProvider extends ServiceProvider
                 'iframe-tabs'
             );
         }
+
         $this->app->booted(function () {
             IframeTabs::routes(__DIR__ . '/../routes/web.php');
         });
 
-        if(!$this->app->runningInConsole())
-        {
+        Admin::booting(function () {
+            
+            Admin::js('/vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
+
+            $layer_path = IframeTabs::config('layer_path', '');
+            if ($layer_path) {
+                Admin::js($layer_path);
+            }
+        });
+
+        if (!$this->app->runningInConsole()) {
+
             Admin::booted(function () {
+                if ($this->isMinify()) {
+
+                    $this->fixMinify();
+                }
+
                 if (\Request::route()->getName() == 'iframes.index') {
                     //Override view index hide partials.footer
                     \View::prependNamespace('admin', __DIR__ . '/../resources/views/index');
-                    // add script ands css
+
                     Admin::css(IframeTabs::config('tabs_css', '/vendor/laravel-admin-ext/iframe-tabs/dashboard.css'));
-                    Admin::js('/vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
-                    Admin::js('/vendor/laravel-admin-ext/iframe-tabs/sidebarMenu.js');
-                    $layer_path = IframeTabs::config('layer_path', '');
-                    if ($layer_path) {
-                        Admin::js($layer_path);
-                    }
                 } else {
                     //Override view content hide partials.header and partials.sidebar
                     \View::prependNamespace('admin', __DIR__ . '/../resources/views/content');
-                    //Override content style ,reset style of '#pjax-container' margin-left:0
-                    Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
                     //add scritp 'Back to top' in content 
                     $this->contentScript();
+
+                    //Override content style ,reset style of '#pjax-container' margin-left:0
+                    Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
                 }
             });
         }
+    }
+
+    protected function fixMinify()
+    {
+        Admin::$baseJs = Admin::$baseCss = Admin::$css =  Admin::$js = [];
+
+        Admin::js($this->getMinifiedJs());
+        Admin::css($this->getMinifiedCss());
+
+        config(['admin.minify_assets' => false]);
+    }
+
+    protected function isMinify()
+    {
+        if (!isset(Admin::$manifest)) {
+            return false;
+        }
+
+        if (!config('admin.minify_assets') || !file_exists(public_path(Admin::$manifest))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    protected function getMinifiedCss()
+    {
+        if (!config('admin.minify_assets') || !file_exists(public_path(Admin::$manifest))) {
+            return false;
+        }
+
+        return $this->getManifestData('css');
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    protected function getMinifiedJs()
+    {
+        if (!config('admin.minify_assets') || !file_exists(public_path(Admin::$manifest))) {
+            return false;
+        }
+
+        return $this->getManifestData('js');
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    protected function getManifestData($key)
+    {
+        if (!empty(static::$manifestData)) {
+            return static::$manifestData[$key];
+        }
+
+        static::$manifestData = json_decode(
+            file_get_contents(public_path(Admin::$manifest)),
+            true
+        );
+
+        return static::$manifestData[$key];
     }
 
     protected function contentScript()
     {
         $script = <<<EOT
 
-        $('.wrapper').append('<span id="back-to-top" class="fa fa-upload" title="Back to top" style="display:none;"></span>');
+        $('body').addClass('iframe-content');
 
-        $(window).scroll(function() {
-            if ($(window).scrollTop() > 400) {
-                $("#back-to-top").fadeIn(300);
-            } else {
-                $("#back-to-top").fadeOut(300);
-            }
-        });
-        
-        $("#back-to-top").click(function() {
-            if ($('html').scrollTop()) {
-                $('html').animate({
+        if(!$('button#totop'))
+        {
+            $('.wrapper').append('<span id="totop" class="fa fa-upload" title="Back to top" style="display:none;"></span>');
+
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > 400) {
+                    $("#totop").fadeIn(300);
+                } else {
+                    $("#totop").fadeOut(300);
+                }
+            });
+            
+            $("#totop").click(function() {
+                if ($('html').scrollTop()) {
+                    $('html').animate({
+                        scrollTop: 0
+                    }, 300);
+                    return false;
+                }
+                $('body').animate({
                     scrollTop: 0
                 }, 300);
                 return false;
-            }
-            $('body').animate({
-                scrollTop: 0
-            }, 300);
-            return false;
-        });
+            });
+        }
 
         if($('#terminal-box').size())
         {

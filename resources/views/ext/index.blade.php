@@ -65,7 +65,7 @@
             };
         }
 
-        $('body').on('click', '.sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a', function() {
+        $('body').on('click', '.sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a,.sidebar-form .dropdown-menu li a', function() {
             var url = $(this).attr('href');
             if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
                 return;
@@ -100,9 +100,16 @@
                 icon: icon
             });
 
-            if ($(this).parents('.dropdown').size()) {
-                $(this).parents('.dropdown').find('.dropdown-toggle').trigger('click');
+            var toggle = false;
+            if ($(this).parents('.dropdown').size() && (toggle = $(this).parents('.dropdown').find('.dropdown-toggle'))) {
+                toggle.trigger('click');
             }
+
+            if ($(this).parents('.sidebar-form') && (toggle = $(this).parents('.sidebar-form').find('.input-group-btn button')))
+            {
+                toggle.trigger('click');
+            }
+
             return false;
         });
 
