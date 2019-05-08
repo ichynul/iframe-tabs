@@ -72,8 +72,8 @@ class IframeTabsServiceProvider extends ServiceProvider
     {
         Admin::$baseJs = Admin::$baseCss = Admin::$css =  Admin::$js = [];
 
-        Admin::js($this->getMinifiedJs());
-        Admin::css($this->getMinifiedCss());
+        Admin::js($this->getManifestData('js'));
+        Admin::css($this->getManifestData('css'));
 
         config(['admin.minify_assets' => false]);
     }
@@ -89,30 +89,6 @@ class IframeTabsServiceProvider extends ServiceProvider
         }
 
         return true;
-    }
-
-    /**
-     * @return bool|mixed
-     */
-    protected function getMinifiedCss()
-    {
-        if (!config('admin.minify_assets') || !file_exists(public_path(Admin::$manifest))) {
-            return false;
-        }
-
-        return $this->getManifestData('css');
-    }
-
-    /**
-     * @return bool|mixed
-     */
-    protected function getMinifiedJs()
-    {
-        if (!config('admin.minify_assets') || !file_exists(public_path(Admin::$manifest))) {
-            return false;
-        }
-
-        return $this->getManifestData('js');
     }
 
     /**
