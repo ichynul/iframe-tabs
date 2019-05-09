@@ -21,11 +21,22 @@ class ForceLogin
     <script>
         if (window != top) {
             top.location.reload();
+            
+            document.querySelector('body').innerHTML = 
+
+            '<div style="background:#fff;z-index:999;padding-top:88px;position:fixed;top:0px;height:10000px;width:100%;text-align:center;font-size:18px;"><p>Go to Login page ...</p></div>';
+            
+            if(!!(window.attachEvent && !window.opera)){
+                document.execCommand("stop");
+            }
+            else {
+                window.stop();
+            }
         }
     </script>
 
 EOT;
-        $response->setContent(preg_replace('/<\/head>/i', $script . '</head>', $content));
+        $response->setContent(preg_replace('/<body([^>]*)>/i', '<body$1>' . $script, $content));
         \Session::forget('url.intended');
         return $response;
     }
