@@ -25,11 +25,11 @@ class IframeTabsController extends Controller
                 'scroll_right' => trans('admin.iframe_tabs.scroll_right'),
                 'scroll_current' => trans('admin.iframe_tabs.scroll_current'),
             ],
-            'home_uri' => IframeTabs::config('home_uri', '/admin/dashboard'),
+            'home_uri' => admin_base_path('dashboard'),
             'home_title' => IframeTabs::config('home_title', 'Index'),
             'home_icon' => IframeTabs::config('home_icon', 'fa-home'),
             'use_icon' => IframeTabs::config('use_icon', true) ? '1' : '',
-            'pass_urls' => implode(',', IframeTabs::config('pass_urls', ['/admin/auth/logout'])),
+            'pass_urls' => implode(',', IframeTabs::config('pass_urls', ['/admin/auth/lock'])),
             'iframes_index' => admin_url(),
             'tabs_left' => IframeTabs::config('tabs_left', '42')
         ];
@@ -52,23 +52,23 @@ class IframeTabsController extends Controller
                 'iframe-tabs' => [
                      // Set to `false` if you want to disable this extension
                     'enable' => true,
-                    // Default page controller
+                    // The controller and action of dashboard page `/admin/dashboard`
                     'home_action' => App\Admin\Controllers\HomeController::class . '@index',//edit here
-                    // Default page uir after user login success
-                    'home_uri' => '/admin/dashboard',
                     // Default page tab-title
                     'home_title' => 'Home',
                     // Default page tab-title icon
                     'home_icon' => 'fa-home',
                     // wheath show icon befor titles for all tab
                     'use_icon' => true,
+                    // dashboard css 
+                    'tabs_css' =>'vendor/laravel-admin-ext/iframe-tabs/dashboard.css',
                     // layer.js path , if you do not user laravel-admin-ext\cropper , set another one
-                    'layer_path' => '/vendor/laravel-admin-ext/cropper/layer/layer.js',
-                    //href links do not open in tab .
+                    'layer_path' => 'vendor/laravel-admin-ext/cropper/layer/layer.js',
+                    // href links do not open in tab .
                     'pass_urls' => ['/admin/auth/logout', '/admin/auth/lock'],
-                    //When login session state of a tab-page was expired , force top-level window goto login page .
+                    // When login session state of a tab-page was expired , force top-level window goto login page .
                     'force_login_in_top' => true,
-                    //tabs left offset
+                    // tabs left offset
                     'tabs_left'  => 42,
                 ]
             ],</pre>");

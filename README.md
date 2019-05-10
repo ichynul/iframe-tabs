@@ -52,10 +52,8 @@ Add a config in `config/admin.php`:
         'iframe-tabs' => [
            // Set to `false` if you want to disable this extension
             'enable' => true,
-            // Default page controller
+            // The controller and action of dashboard page `/admin/dashboard`
             'home_action' => App\Admin\Controllers\HomeController::class . '@index',
-            // Default page uir after user login success
-            'home_uri' => '/admin/dashboard',
             // Default page tab-title
             'home_title' => 'Home',
             // Default page tab-title icon
@@ -63,21 +61,18 @@ Add a config in `config/admin.php`:
             // Whether show icon befor titles for all tab
             'use_icon' => true,
             // dashboard css 
-            'tabs_css' =>'/vendor/laravel-admin-ext/iframe-tabs/dashboard.css',
+            'tabs_css' =>'vendor/laravel-admin-ext/iframe-tabs/dashboard.css',
             // layer.js path , if you do not use laravel-admin-ext\cropper , set another one
-            'layer_path' => '',
+            'layer_path' => 'vendor/laravel-admin-ext/cropper/layer/layer.js',
             /**
              * href links do not open in tab .
-             * selecter : .sidebar-menu li a,.navbar-nav>li a .
-             * if(href.indexOf(pass_urls[i]) > -1)
-             * {
-             *     //pass
-             * }
+             * selecter : .sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a,.sidebar-form .dropdown-menu li a
+             * if(href.indexOf(pass_urls[i]) > -1) //pass
              */
             'pass_urls' => ['/admin/auth/logout', '/admin/auth/lock'],
-            //When login session state of a tab-page was expired , force top-level window goto login page .
+            // When login session state of a tab-page was expired , force top-level window goto login page .
             'force_login_in_top' => true,
-            //tabs left offset
+            // tabs left offset
             'tabs_left'  => 42,
         ]
     ],

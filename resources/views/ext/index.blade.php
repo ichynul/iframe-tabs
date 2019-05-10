@@ -92,7 +92,7 @@
             }
             var span = $(this).find('span');
             addTabs({
-                id: url.replace(/\W/g, '_'),
+                id: url == window.home_uri ? '_admin_dashboard' : url.replace(/\W/g, '_'),
                 title: span.size() ? span.text() : $(this).text().length ? $(this).text() : '*',
                 close: true,
                 url: url,
@@ -105,8 +105,7 @@
                 toggle.trigger('click');
             }
 
-            if ($(this).parents('.sidebar-form') && (toggle = $(this).parents('.sidebar-form').find('.input-group-btn button')))
-            {
+            if ($(this).parents('.sidebar-form') && (toggle = $(this).parents('.sidebar-form').find('.input-group-btn button'))) {
                 toggle.trigger('click');
             }
 

@@ -32,34 +32,34 @@ class IframeTabsServiceProvider extends ServiceProvider
             IframeTabs::routes(__DIR__ . '/../routes/web.php');
         });
 
-        Admin::booting(function () {
-            Admin::js('/vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
+        $isMinify = $this->isMinify();
+
+        $layer_path = IframeTabs::config('layer_path', '');
+
+        Admin::booting(function () use ($layer_path) {
+            Admin::js('vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
+            if ($layer_path) {
+                Admin::js($layer_path);
+            }
         });
 
         if (!$this->app->runningInConsole()) {
 
-            Admin::booted(function () {
-
-                $isMinify = $this->isMinify();
+            Admin::booted(function () use ($isMinify, $layer_path) {
 
                 if ($isMinify) {
                     $this->fixMinify();
                 }
 
-                $layer_path = IframeTabs::config('layer_path', '');
-                if ($layer_path) {
-                    Admin::js($layer_path);
-
-                    if ($isMinify) {
-                        Admin::css(preg_replace('/^(.+)layer\.js.*$/i', '$1theme/default/layer.css?v=iframe-tabs', $layer_path));
-                    }
+                if ($isMinify && $layer_path) {
+                    Admin::css(preg_replace('/^(.+)layer\.js.*$/i', '$1theme/default/layer.css?v=iframe-tabs', $layer_path));
                 }
 
                 if (\Request::route()->getName() == 'iframes.index') {
                     //Override view index hide partials.footer
                     \View::prependNamespace('admin', __DIR__ . '/../resources/views/index');
 
-                    Admin::css(IframeTabs::config('tabs_css', '/vendor/laravel-admin-ext/iframe-tabs/dashboard.css'));
+                    Admin::css(IframeTabs::config('tabs_css', 'vendor/laravel-admin-ext/iframe-tabs/dashboard.css'));
                 } else {
                     //Override view content hide partials.header and partials.sidebar
                     \View::prependNamespace('admin', __DIR__ . '/../resources/views/content');
