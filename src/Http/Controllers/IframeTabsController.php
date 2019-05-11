@@ -29,7 +29,7 @@ class IframeTabsController extends Controller
             'home_title' => IframeTabs::config('home_title', 'Index'),
             'home_icon' => IframeTabs::config('home_icon', 'fa-home'),
             'use_icon' => IframeTabs::config('use_icon', true) ? '1' : '',
-            'pass_urls' => implode(',', IframeTabs::config('pass_urls', ['/admin/auth/lock'])),
+            'pass_urls' => implode(',', IframeTabs::config('pass_urls', ['/admin/auth/logout'])),
             'iframes_index' => admin_url(),
             'tabs_left' => IframeTabs::config('tabs_left', '42')
         ];
