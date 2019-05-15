@@ -7,7 +7,20 @@ use Illuminate\Support\ServiceProvider;
 
 class IframeTabsServiceProvider extends ServiceProvider
 {
-    public static $manifestData = [];
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        Admin::booted(function () {
+
+            if (!$this->app->runningInConsole()) {
+                IframeTabs::fixMinify();
+            }
+        });
+    }
 
     /**
      * {@inheritdoc}
@@ -32,8 +45,6 @@ class IframeTabsServiceProvider extends ServiceProvider
             IframeTabs::routes(__DIR__ . '/../routes/web.php');
         });
 
-        $isMinify = $this->isMinify();
-
         $layer_path = IframeTabs::config('layer_path', '');
 
         Admin::booting(function () use ($layer_path) {
@@ -45,13 +56,9 @@ class IframeTabsServiceProvider extends ServiceProvider
 
         if (!$this->app->runningInConsole()) {
 
-            Admin::booted(function () use ($isMinify, $layer_path) {
+            Admin::booted(function () use ($layer_path) {
 
-                if ($isMinify) {
-                    $this->fixMinify();
-                }
-
-                if ($isMinify && $layer_path) {
+                if (IframeTabs::isMinify() && $layer_path) {
                     Admin::css(preg_replace('/^(.+)layer\.js.*$/i', '$1theme/default/layer.css?v=iframe-tabs', $layer_path));
                 }
 
@@ -73,46 +80,6 @@ class IframeTabsServiceProvider extends ServiceProvider
                 config(['admin.minify_assets' => false]);
             });
         }
-    }
-
-    protected function fixMinify()
-    {
-        Admin::$baseJs = Admin::$baseCss = Admin::$css =  Admin::$js = [];
-
-        Admin::js($this->getManifestData('js'));
-        Admin::css($this->getManifestData('css'));
-    }
-
-    protected function isMinify()
-    {
-        if (!isset(Admin::$manifest)) {
-            return false;
-        }
-
-        if (!config('admin.minify_assets') || !file_exists(public_path(Admin::$manifest))) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return mixed
-     */
-    protected function getManifestData($key)
-    {
-        if (!empty(static::$manifestData)) {
-            return static::$manifestData[$key];
-        }
-
-        static::$manifestData = json_decode(
-            file_get_contents(public_path(Admin::$manifest)),
-            true
-        );
-
-        return static::$manifestData[$key];
     }
 
     protected function contentScript()

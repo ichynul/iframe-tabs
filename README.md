@@ -69,7 +69,7 @@ Add a config in `config/admin.php`:
              * selecter : .sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a,.sidebar-form .dropdown-menu li a
              * if(href.indexOf(pass_urls[i]) > -1) //pass
              */
-            'pass_urls' => ['/admin/auth/logout', '/admin/auth/lock'],
+            'pass_urls' => ['/auth/logout', '/auth/lock'],
             // When login session state of a tab-page was expired , force top-level window goto login page .
             'force_login_in_top' => true,
             // tabs left offset
