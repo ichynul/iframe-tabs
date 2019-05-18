@@ -92,7 +92,8 @@ Add a lang config in `resources/lang/{zh-CN}/admin.php`
     'open_in_pop' => '弹出窗打开',
     'scroll_left' => '滚动到最左',
     'scroll_right' => '滚动到最右',
-    'scroll_current' => '滚动到当前'
+    'scroll_current' => '滚动到当前',
+    'goto_login' => '登录超时，正在跳转登录页面...'
 ],
 ```
 

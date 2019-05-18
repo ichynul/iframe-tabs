@@ -11,6 +11,10 @@ class IframeTabsController extends Controller
 {
     public function index()
     {
+        if (!IframeTabs::boot()) {
+            return redirect(admin_base_path('dashboard'));
+        }
+
         $items = [
             'header' => '',
             'trans' => [

@@ -4,6 +4,7 @@ namespace Ichynul\IframeTabs;
 
 use Encore\Admin\Admin;
 use Illuminate\Support\ServiceProvider;
+use Ichynul\IframeTabs\Middleware\ForceLogin;
 
 class IframeTabsServiceProvider extends ServiceProvider
 {
@@ -14,6 +15,8 @@ class IframeTabsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        app('router')->aliasMiddleware('iframe.lgoin', ForceLogin::class);
+
         Admin::booted(function () {
 
             if (!$this->app->runningInConsole()) {
