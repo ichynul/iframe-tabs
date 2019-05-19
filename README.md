@@ -17,7 +17,8 @@ $ php artisan admin:import iframe-tabs
 ```
 
 ## 1.0.28
-新版本1.0.28布局改动较大，更新版本后记得强制发布资源 
+
+新版本 1.0.28 布局改动较大，更新版本后记得强制发布资源
 
 The layout of the new version 1.0.28 has changed a lot. After updating the version, remember to force release resources.
 
@@ -60,9 +61,9 @@ Add a config in `config/admin.php`:
             'home_icon' => 'fa-home',
             // Whether show icon befor titles for all tab
             'use_icon' => true,
-            // dashboard css 
+            // dashboard css
             'tabs_css' =>'vendor/laravel-admin-ext/iframe-tabs/dashboard.css',
-            // layer.js path , if you do not use laravel-admin-ext\cropper , set another one
+            // layer.js path
             'layer_path' => 'vendor/laravel-admin-ext/cropper/layer/layer.js',
             /**
              * href links do not open in tab .
@@ -74,6 +75,8 @@ Add a config in `config/admin.php`:
             'force_login_in_top' => true,
             // tabs left offset
             'tabs_left'  => 42,
+            // bind click event of <a></a> in table popup or new_tab
+            'bind_urls' => 'popup',
         ]
     ],
 

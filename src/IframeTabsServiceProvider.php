@@ -3,6 +3,7 @@
 namespace Ichynul\IframeTabs;
 
 use Encore\Admin\Admin;
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Ichynul\IframeTabs\Middleware\ForceLogin;
 
@@ -48,10 +49,15 @@ class IframeTabsServiceProvider extends ServiceProvider
             IframeTabs::routes(__DIR__ . '/../routes/web.php');
         });
 
-        $layer_path = IframeTabs::config('layer_path', '');
+        $layer_path = IframeTabs::config('layer_path', 'vendor/laravel-admin-ext/iframe-tabs/layer/layer.js');
+
+        if (!file_exists(public_path($layer_path))) {
+            $layer_path = '';
+        }
 
         Admin::booting(function () use ($layer_path) {
             Admin::js('vendor/laravel-admin-ext/iframe-tabs/bootstrap-tab.js');
+
             if ($layer_path) {
                 Admin::js($layer_path);
             }
@@ -71,6 +77,9 @@ class IframeTabsServiceProvider extends ServiceProvider
 
                     Admin::css(IframeTabs::config('tabs_css', 'vendor/laravel-admin-ext/iframe-tabs/dashboard.css'));
                 } else {
+
+                    $this->initSubPage();
+
                     //Override view content hide partials.header and partials.sidebar
                     \View::prependNamespace('admin', __DIR__ . '/../resources/views/content');
                     //add scritp 'Back to top' in content 
@@ -85,9 +94,110 @@ class IframeTabsServiceProvider extends ServiceProvider
         }
     }
 
+    protected function initSubPage()
+    {
+        if (!in_array(IframeTabs::config('bind_urls', 'new_tab'), ['new_tab', 'popup'])) {
+            return;
+        }
+
+        $method = strtolower(request()->method());
+        $session = request()->session();
+
+        if ($method == 'get') {
+            $_ifraem_id_ =  $session->pull('_ifraem_id_', '');
+            $after_save =  $session->pull('after_save', '');
+            if ($_ifraem_id_ && $session->has('toastr')) {
+
+                if ($session->has('toastr')) {
+                    $toastr     = $session->get('toastr');
+                    $type       = Arr::get($toastr->get('type'), 0, 'success');
+                    $message    = Arr::get($toastr->get('message'), 0, '');
+
+                    if ($type == 'success') {
+                        $session->put('_list_ifraem_id_', $_ifraem_id_);
+                        $session->put('_list_after_save_', $after_save);
+                        $session->put('_success_message_', $message);
+                    }
+                }
+            }
+        } else if ($method == 'put' || $method == 'post') {
+
+            $post_ifraem_id_ = request()->input('_ifraem_id_', '');
+
+            $post_after_save = request()->input('after-save', '');
+
+            if ($post_ifraem_id_) {
+                $session->put('_ifraem_id_', $post_ifraem_id_);
+            } else {
+                $session->forget('_ifraem_id_');
+            }
+
+            if ($post_after_save) {
+                $session->put('after_save', $post_after_save);
+            } else {
+                $session->forget('after_save');
+            }
+        }
+    }
+
     protected function contentScript()
     {
+        $session = request()->session();
+
+        $_ifraem_id_ = request()->input('_ifraem_id_', '');
+        $_list_ifraem_id_ = $session->pull('_list_ifraem_id_', '');
+        $_success_message_ = $session->pull('_success_message_', 'success');
+        $_list_after_save_ =  $session->pull('_list_after_save_', '');
+
         $script = <<<EOT
+        
+        var _ifraem_id_ = '{$_ifraem_id_}';
+
+        var _list_ifraem_id_ = '{$_list_ifraem_id_}';
+
+        var _list_after_save_ = '{$_list_after_save_}';
+
+        if (_list_ifraem_id_)
+        {
+            var iframes = top.document.getElementsByTagName("iframe");
+            for(var i in iframes)
+            {
+                if (iframes[i].id == _list_ifraem_id_)
+                {
+                    var openner = iframes[i].contentWindow;
+
+                    openner.$.pjax.reload('#pjax-container');
+
+                    var tab_id = getCurrentId();
+
+                    if(!_list_after_save_ && tab_id)
+                    {
+                        top.toastr.success('{$_success_message_}');
+
+                        if (top.bind_urls =='new_tab') 
+                        {
+                            
+                            top.closeTabByPageId(tab_id.replace(/^iframe_/i, ''));
+                        }
+                        else
+                        {
+                            
+                            var index = top.layer.getFrameIndex(window.name);
+                            top.layer.close(index);
+                        }
+
+                        if(!!(window.attachEvent && !window.opera)){
+                            document.execCommand("stop");
+                        }
+                        else {
+                            window.stop();
+                        }
+                    }
+                    break;
+                }
+            }
+            return;
+        }
 
         $('body').addClass('iframe-content');
 
@@ -141,7 +251,73 @@ class IframeTabsServiceProvider extends ServiceProvider
                 return false;
             }
         });
+
+        if ((top.bind_urls =='new_tab' || top.bind_urls =='popup') && $(".box-body table.table").size())
+        {
+            $(".box-body table.table tr>td a,.box-header .pull-right .btn-success").click(function(){
+                var url = $(this).attr('href');
+                if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
+                    return;
+                }
+
+                if ($(this).attr('target') == '_blank') {
+                    return;
+                }
+
+                if ($(this).hasClass('iframes-pass-url')) {
+                    return;
+                }
+
+                var icon = '<i class="fa fa-file-text"></i>';
+                if ($(this).find('i.fa').size()) {
+                    icon = $(this).find('i.fa').prop("outerHTML");
+                }
+
+                var title = ($(this).text() || '').trim();
+                
+                var tab_id = getCurrentId();
+
+                if(!tab_id)
+                {
+                    return true;
+                }
+
+                url += (url.indexOf('?')>-1? '&':'?') + '_ifraem_id_=' + tab_id;
+
+                tab_id = tab_id.replace(/^iframe_(.+)$/ ,'$1');
+
+                title = ' ' + top.findTabTitle(tab_id).text() + (title ? '-' + title : '');
+                
+                if(top.bind_urls == 'popup')
+                {
+                    top.openPop(url, icon + title);
+                }
+                else
+                {
+                    top.openTab(url, title || '*', icon);
+                }
+
+                return false;
+            });
+        }
         
+        if(_ifraem_id_ && $('form').size())
+        {
+            $('form').append('<input type="hidden" name="_ifraem_id_" value="' + _ifraem_id_ + '" />');
+        }
+
+        function getCurrentId()
+        {
+            var iframes = top.document.getElementsByTagName("iframe");
+            for(var i in iframes)
+            {
+                if (iframes[i].contentWindow == window)
+                {
+                    return '' + iframes[i].id;
+                }
+            }
+            return '';
+        }
 EOT;
         Admin::script($script);
     }

@@ -35,7 +35,8 @@ class IframeTabsController extends Controller
             'use_icon' => IframeTabs::config('use_icon', true) ? '1' : '',
             'pass_urls' => implode(',', IframeTabs::config('pass_urls', ['/auth/logout'])),
             'iframes_index' => admin_url(),
-            'tabs_left' => IframeTabs::config('tabs_left', '42')
+            'tabs_left' => IframeTabs::config('tabs_left', '42'),
+            'bind_urls' => IframeTabs::config('bind_urls', 'new_tab')
         ];
 
         Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) use ($items) {
