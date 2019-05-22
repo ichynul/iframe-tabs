@@ -286,7 +286,14 @@ class IframeTabsServiceProvider extends ServiceProvider
 
                 tab_id = tab_id.replace(/^iframe_(.+)$/ ,'$1');
 
-                title = ' ' + top.findTabTitle(tab_id).text() + (title ? '-' + title : '');
+                var tab = top.findTabTitle(tab_id);
+
+                if (!tab)
+                {
+                    return true;
+                }
+
+                title = ' ' + tab.text() + (title ? '-' + title : '');
                 
                 if(top.bind_urls == 'popup')
                 {
