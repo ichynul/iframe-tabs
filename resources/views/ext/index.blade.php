@@ -31,7 +31,7 @@
                 shade: false,
                 maxmin: true, //开启最大化最小化按钮
                 area: [$('#tab-content').width() + 'px', ($('#tab-content').height() - 5) + 'px'],
-                offset: 'rb'
+                //offset: 'rb'
             });
         }
 

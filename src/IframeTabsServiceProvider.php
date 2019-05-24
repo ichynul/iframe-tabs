@@ -157,7 +157,7 @@ class IframeTabsServiceProvider extends ServiceProvider
 
         var _list_after_save_ = '{$_list_after_save_}';
 
-        if (_list_ifraem_id_)
+        if (_list_ifraem_id_ && !_list_after_save_)
         {
             var iframes = top.document.getElementsByTagName("iframe");
             for(var i in iframes)
@@ -168,31 +168,27 @@ class IframeTabsServiceProvider extends ServiceProvider
 
                     openner.$.pjax.reload('#pjax-container');
 
-                    var tab_id = getCurrentId();
-
-                    if(!_list_after_save_ && tab_id)
+                    if (top.bind_urls =='new_tab')
                     {
-                        top.toastr.success('{$_success_message_}');
-
-                        if (top.bind_urls =='new_tab') 
+                        var tab_id = getCurrentId();
+                        if(tab_id)
                         {
-                            
+                            top.toastr.success('{$_success_message_}');
                             top.closeTabByPageId(tab_id.replace(/^iframe_/i, ''));
-                        }
-                        else
-                        {
-                            
-                            var index = top.layer.getFrameIndex(window.name);
-                            top.layer.close(index);
-                        }
-
-                        if(!!(window.attachEvent && !window.opera)){
-                            document.execCommand("stop");
-                        }
-                        else {
-                            window.stop();
+                            doStop();
                         }
                     }
+                    else if (top.bind_urls =='popup')
+                    {
+                        var index = parent.layer.getFrameIndex(window.name);
+                        if(index)
+                        {
+                            top.toastr.success('{$_success_message_}');
+                            parent.layer.close(index);
+                            doStop();
+                        }
+                    }
+
                     break;
                 }
             }
@@ -297,7 +293,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                 
                 if(top.bind_urls == 'popup')
                 {
-                    top.openPop(url, icon + title);
+                    openPop(url, icon + title);
                 }
                 else
                 {
@@ -324,6 +320,28 @@ class IframeTabsServiceProvider extends ServiceProvider
                 }
             }
             return '';
+        }
+
+        function doStop()
+        {
+            if(!!(window.attachEvent && !window.opera)){
+                document.execCommand("stop");
+            }
+            else {
+                window.stop();
+            }
+        }
+
+        function openPop(url, title) {
+            layer.open({
+                content: url,
+                type: 2,
+                title: title,
+                anim: 2,
+                closeBtn: 1,
+                shade: false,
+                area: ['100%', '100%'],
+            });
         }
 EOT;
         Admin::script($script);

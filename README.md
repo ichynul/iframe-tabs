@@ -75,12 +75,39 @@ Add a config in `config/admin.php`:
             'force_login_in_top' => true,
             // tabs left offset
             'tabs_left'  => 42,
-            // bind click event of <a></a> in table popup or new_tab
+            // bind click event of table actions [edit / view] , [ popup / new_tab / none]
             'bind_urls' => 'popup',
         ]
     ],
 
 ```
+
+ If `bind_urls` set to `popup` or `new_tab` , recommend `disableView` and `disableList` in form
+    `/Admin/bootstrap.php`  :
+```php
+    Encore\Admin\Form::init(function ($form) {
+        $form->tools(function ($tools) {
+            $tools->disableDelete();
+            $tools->disableView();
+            $tools->disableList();
+        });
+    });
+```
+See https://laravel-admin.org/docs/zh/model-form-init
+
+ 
+And `disableEdit` and `disableList` in show :
+```php
+   $show->panel()
+   ->tools(function ($tools) {
+       $tools->disableEdit();
+       $tools->disableList();
+       $tools->disableDelete();
+   });;
+```
+
+
+
 
 Add a lang config in `resources/lang/{zh-CN}/admin.php`
 
