@@ -47,7 +47,7 @@
             } else {
                 icon = '<i class="fa fa-file-text"></i>';
             }
-            
+
             addTabs({
                 id: page_id || url.replace(/\W/g, '_'),
                 title: title || 'New page',
@@ -73,6 +73,28 @@
                 }
             };
         }
+
+        $('body').on('click', '#tab-menu a.menu_tab', function() {
+            var pageId = getPageId(this);
+            var $ele = null;
+            $(".sidebar-menu li a").each(function() {
+                var $meun = $(this);
+                if ($meun.attr('data-pageid') == pageId) {
+                    $ele = $meun;
+                    return false; //退出循环
+                }
+            });
+            if ($ele) {
+                $ele.parents('.treeview').not('.active').find('> a').trigger('click');
+                setTimeout(function() {
+                    var $parent = $ele.parent().addClass('active');
+                    $parent.siblings('.treeview.active').removeClass('active');
+                    $parent.siblings().removeClass('active').find('li').removeClass('active')
+                }, 500);
+            }
+        });
+
+
 
         $('body').on('click', '.sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a,.sidebar-form .dropdown-menu li a', function() {
             var url = $(this).attr('href');
@@ -100,14 +122,17 @@
                 icon = $(this).find('i.fa').prop("outerHTML");
             }
             var span = $(this).find('span');
+            var id = url == window.home_uri ? '_admin_dashboard' : url.replace(/\W/g, '_');
             addTabs({
-                id: url == window.home_uri ? '_admin_dashboard' : url.replace(/\W/g, '_'),
+                id: id,
                 title: span.size() ? span.text() : $(this).text().length ? $(this).text() : '*',
                 close: true,
                 url: url,
                 urlType: 'absolute',
                 icon: icon
             });
+
+            $(this).attr('data-pageid', id);
 
             var toggle = false;
             if ($(this).parents('.dropdown').size() && (toggle = $(this).parents('.dropdown').find('.dropdown-toggle'))) {
