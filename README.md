@@ -16,12 +16,6 @@ $ php artisan vendor:publish --tag=iframe-tabs
 $ php artisan admin:import iframe-tabs
 ```
 
-## 1.0.28
-
-新版本 1.0.28 布局改动较大，更新版本后记得强制发布资源
-
-The layout of the new version 1.0.28 has changed a lot. After updating the version, remember to force release resources.
-
 ## Update it
 
 (本扩展依赖一些 js 和 css 文件，composer update 若版本号有变请强制发布资源，可能是更新了某些样式)
@@ -44,7 +38,7 @@ Or you can and a script in `composer.json` :
 }
 ```
 
-## Usage
+## Config
 
 Add a config in `config/admin.php`:
 
@@ -106,7 +100,7 @@ And `disableEdit` and `disableList` in show :
    });;
 ```
 
-
+## Lang
 
 
 Add a lang config in `resources/lang/{zh-CN}/admin.php`
