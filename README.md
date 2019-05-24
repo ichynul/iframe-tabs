@@ -75,8 +75,8 @@ Add a config in `config/admin.php`:
             'force_login_in_top' => true,
             // tabs left offset
             'tabs_left'  => 42,
-            // bind click event of table actions [edit / view] , [ popup / new_tab / none]
-            'bind_urls' => 'popup',
+            // bind click event of table actions [edit / view]  
+            'bind_urls' => 'popup', //[ popup / new_tab / none]
         ]
     ],
 
