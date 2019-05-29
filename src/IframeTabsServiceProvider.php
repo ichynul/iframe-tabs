@@ -16,7 +16,7 @@ class IframeTabsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app('router')->aliasMiddleware('iframe.lgoin', ForceLogin::class);
+        app('router')->aliasMiddleware('iframe.login', ForceLogin::class);
 
         Admin::booted(function () {
 

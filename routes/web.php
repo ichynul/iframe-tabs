@@ -13,7 +13,7 @@ if (IframeTabs::config('force_login_in_top', true)) {
 
     $middleware = config('admin.route.middleware', []);
 
-    array_push($middleware, 'iframe.lgoin');
+    array_push($middleware, 'iframe.login');
 
     $authController = config('admin.auth.controller', AuthController::class);
 
