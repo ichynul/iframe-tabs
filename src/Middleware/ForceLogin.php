@@ -25,6 +25,7 @@ class ForceLogin
         $content = $response->getContent();
         $message = trans('admin.iframe_tabs.goto_login');
         $script = <<<EOT
+        
     <script>
         if (window != top) {
             top.location.reload();
