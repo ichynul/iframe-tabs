@@ -3,9 +3,9 @@
 namespace Ichynul\IframeTabs;
 
 use Encore\Admin\Admin;
+use Ichynul\IframeTabs\Middleware\ForceLogin;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
-use Ichynul\IframeTabs\Middleware\ForceLogin;
 
 class IframeTabsServiceProvider extends ServiceProvider
 {
@@ -63,7 +63,8 @@ class IframeTabsServiceProvider extends ServiceProvider
             }
         });
 
-        if (!$this->app->runningInConsole()) {
+        if (!$this->app->runningInConsole()
+            && !preg_match('/.*?admin:minify.*?/i', request('c', ''))) { // if run admin:minify in `admin/helpers/terminal/artisan`
 
             Admin::booted(function () use ($layer_path) {
 
@@ -82,7 +83,7 @@ class IframeTabsServiceProvider extends ServiceProvider
 
                     //Override view content hide partials.header and partials.sidebar
                     \View::prependNamespace('admin', __DIR__ . '/../resources/views/content');
-                    //add scritp 'Back to top' in content 
+                    //add scritp 'Back to top' in content
                     $this->contentScript();
 
                     //Override content style ,reset style of '#pjax-container' margin-left:0
@@ -104,14 +105,14 @@ class IframeTabsServiceProvider extends ServiceProvider
         $session = request()->session();
 
         if ($method == 'get') {
-            $_ifraem_id_ =  $session->pull('_ifraem_id_', '');
-            $after_save =  $session->pull('after_save', '');
+            $_ifraem_id_ = $session->pull('_ifraem_id_', '');
+            $after_save = $session->pull('after_save', '');
             if ($_ifraem_id_ && $session->has('toastr')) {
 
                 if ($session->has('toastr')) {
-                    $toastr     = $session->get('toastr');
-                    $type       = Arr::get($toastr->get('type'), 0, 'success');
-                    $message    = Arr::get($toastr->get('message'), 0, '');
+                    $toastr = $session->get('toastr');
+                    $type = Arr::get($toastr->get('type'), 0, 'success');
+                    $message = Arr::get($toastr->get('message'), 0, '');
 
                     if ($type == 'success') {
                         $session->put('_list_ifraem_id_', $_ifraem_id_);
@@ -147,10 +148,10 @@ class IframeTabsServiceProvider extends ServiceProvider
         $_ifraem_id_ = request()->input('_ifraem_id_', '');
         $_list_ifraem_id_ = $session->pull('_list_ifraem_id_', '');
         $_success_message_ = $session->pull('_success_message_', 'success');
-        $_list_after_save_ =  $session->pull('_list_after_save_', '');
+        $_list_after_save_ = $session->pull('_list_after_save_', '');
 
         $script = <<<EOT
-        
+
         var _ifraem_id_ = '{$_ifraem_id_}';
 
         var _list_ifraem_id_ = '{$_list_ifraem_id_}';
@@ -208,7 +209,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                     $("#totop").fadeOut(300);
                 }
             });
-            
+
             $("#totop").click(function() {
                 if ($('html').scrollTop()) {
                     $('html').animate({
@@ -232,7 +233,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                 });
             });
         }
-        
+
         $('body').on('click', '.breadcrumb li a', function() {
             var url = $(this).attr('href');
             if (url == top.iframes_index) {
@@ -270,7 +271,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                 }
 
                 var title = ($(this).text() || '').trim();
-                
+
                 var tab_id = getCurrentId();
 
                 if(!tab_id)
@@ -290,7 +291,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                 }
 
                 title = ' ' + tab.text() + (title ? '-' + title : '');
-                
+
                 if(top.bind_urls == 'popup')
                 {
                     openPop(url, icon + title);
@@ -303,7 +304,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                 return false;
             });
         }
-        
+
         if(_ifraem_id_ && $('form').size())
         {
             $('form').append('<input type="hidden" name="_ifraem_id_" value="' + _ifraem_id_ + '" />');
