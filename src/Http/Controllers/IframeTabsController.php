@@ -28,6 +28,7 @@ class IframeTabsController extends Controller
                 'scroll_left' => trans('admin.iframe_tabs.scroll_left'),
                 'scroll_right' => trans('admin.iframe_tabs.scroll_right'),
                 'scroll_current' => trans('admin.iframe_tabs.scroll_current'),
+                'refresh_succeeded' => trans('admin.refresh_succeeded'),
             ],
             'home_uri' => admin_base_path('dashboard'),
             'home_title' => IframeTabs::config('home_title', 'Index'),
@@ -36,7 +37,7 @@ class IframeTabsController extends Controller
             'pass_urls' => implode(',', IframeTabs::config('pass_urls', ['/auth/logout'])),
             'iframes_index' => admin_url(),
             'tabs_left' => IframeTabs::config('tabs_left', '42'),
-            'bind_urls' => IframeTabs::config('bind_urls', 'none')
+            'bind_urls' => IframeTabs::config('bind_urls', 'none'),
         ];
 
         Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) use ($items) {
@@ -65,7 +66,7 @@ class IframeTabsController extends Controller
                     'home_icon' => 'fa-home',
                     // wheath show icon befor titles for all tab
                     'use_icon' => true,
-                    // dashboard css 
+                    // dashboard css
                     'tabs_css' =>'vendor/laravel-admin-ext/iframe-tabs/dashboard.css',
                     // layer.js path , if you do not user laravel-admin-ext\cropper , set another one
                     'layer_path' => 'vendor/laravel-admin-ext/cropper/layer/layer.js',
