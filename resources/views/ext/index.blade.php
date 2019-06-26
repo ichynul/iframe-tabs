@@ -7,10 +7,12 @@
 </div>
 
 <script>
+
     $(function() {
         window.refresh_current = "{{ $trans['refresh_current'] }}";
         window.open_in_new = "{{ $trans['open_in_new'] }}";
         window.open_in_pop = "{{ $trans['open_in_pop'] }}";
+        window.refresh_succeeded =  "{{ $trans['refresh_succeeded'] }}";
 
         window.use_icon = "{{ $use_icon }}" == '1';
         window.pass_urls = '{{ $pass_urls }}'.split(',');
@@ -94,9 +96,19 @@
             }
         });
 
-
-
         $('body').on('click', '.sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a,.sidebar-form .dropdown-menu li a', function() {
+            if($(this).hasClass('container-refresh'))
+            {
+                var pageId = getActivePageId();
+                
+                var iframe = findIframeById(pageId);
+
+                iframe[0].contentWindow.$.admin.reload();
+
+                $.admin.toastr.success(refresh_succeeded, '', {positionClass:"toast-top-center"});
+
+                return false;
+            }
             var url = $(this).attr('href');
             if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
                 return;
@@ -178,6 +190,10 @@
             'left': window.tabs_left + 'px',
             'width': '100%'
         });
+
+        setTimeout(function(){
+            $('.container-refresh').off('click');
+        },1000);
 
     });
 </script>
