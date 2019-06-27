@@ -66,7 +66,8 @@ class IframeTabsServiceProvider extends ServiceProvider
         $c = request('c', '');
 
         if (!$this->app->runningInConsole()
-            && !$c || !preg_match('/.*?admin:minify.*?/i', $c)) { // if run admin:minify in `admin/helpers/terminal/artisan`
+            && (!$c || !preg_match('/.*?admin:minify.*?/i', $c)) // if run admin:minify in `admin/helpers/terminal/artisan`
+        ) {
 
             Admin::booted(function () use ($layer_path) {
 
