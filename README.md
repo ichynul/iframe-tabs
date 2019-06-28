@@ -58,7 +58,7 @@ Add a config in `config/admin.php`:
             // dashboard css
             'tabs_css' =>'vendor/laravel-admin-ext/iframe-tabs/dashboard.css',
             // layer.js path
-            'layer_path' => 'vendor/laravel-admin-ext/cropper/layer/layer.js',
+            'layer_path' => 'vendor/laravel-admin-ext/iframe-tabs/layer/layer.js',
             /**
              * href links do not open in tab .
              * selecter : .sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a,.sidebar-form .dropdown-menu li a
@@ -71,6 +71,9 @@ Add a config in `config/admin.php`:
             'tabs_left'  => 42,
             // bind click event of table actions [edit / view]  
             'bind_urls' => 'popup', //[ popup / new_tab / none]
+            //table actions dom selecter
+            'bind_selecter' => '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success',
+            //.box-body table.table tr>td a,.box-header .pull-right .btn-success
         ]
     ],
 

@@ -97,7 +97,7 @@
         });
 
         $('body').on('click', '.sidebar-menu li a,.navbar-nav>li a,.sidebar .user-panel a,.sidebar-form .dropdown-menu li a', function() {
-            if($(this).hasClass('container-refresh'))
+            if ($(this).hasClass('container-refresh'))
             {
                 var pageId = getActivePageId();
                 
@@ -109,6 +109,7 @@
 
                 return false;
             }
+
             var url = $(this).attr('href');
             if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
                 return;
