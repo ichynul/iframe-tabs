@@ -48,7 +48,7 @@ function getActivePageId() {
 }
 
 function canRemoveTab(pageId) {
-    return findTabTitle(pageId).find('.fa-remove').size() > 0;
+    return findTabTitle(pageId).find('.page_tab_close').size() > 0;
 }
 
 //添加tab
@@ -89,7 +89,7 @@ var addTabs = function (options) {
         //是否允许关闭
         if (options.close) {
             var $i = $("<i class='fa fa-times-circle page_tab_close' style='cursor: pointer' onclick='closeTab(this);'></i>").attr(pageIdField, pageId).appendTo($title);
-            // title += ' <i class="fa fa-remove page_tab_close" style="cursor: pointer;" data-id="' + pageId + '" onclick="closeTab(this)"></i>';
+            // title += ' <i class="fa fa-times-circle page_tab_close" style="cursor: pointer;" data-id="' + pageId + '" onclick="closeTab(this)"></i>';
         }
 
         //加入TABS
@@ -375,7 +375,7 @@ var scrollTabRight = function () {
 var closeOtherTabs = function (isAll) {
     if (isAll) {
         //关闭全部
-        $('.page-tabs-content').children("[" + pageIdField + "]").find('.fa-remove').parents('a').each(function () {
+        $('.page-tabs-content').children("[" + pageIdField + "]").find('.page_tab_close').parents('a').each(function () {
             var $a = $(this);
             var pageId = getPageId($a);
             closeTabOnly(pageId);
@@ -394,7 +394,7 @@ var closeOtherTabs = function (isAll) {
         }
     } else {
         //除此之外全部删除
-        $('.page-tabs-content').children("[" + pageIdField + "]").find('.fa-remove').parents('a').not(".active").each(function () {
+        $('.page-tabs-content').children("[" + pageIdField + "]").find('.page_tab_close').parents('a').not(".active").each(function () {
             var $a = $(this);
             var pageId = getPageId($a);
             closeTabOnly(pageId);
