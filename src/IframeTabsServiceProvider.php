@@ -20,10 +20,18 @@ class IframeTabsServiceProvider extends ServiceProvider
 
         Admin::booted(function () {
 
-            if (!$this->app->runningInConsole()) {
+            if ($this->inWeb()) {
                 IframeTabs::fixMinify();
             }
         });
+    }
+
+    protected function inWeb()
+    {
+        $c = request('c', '');
+
+        return !$this->app->runningInConsole()
+            && (!$c || !preg_match('/.*?admin:minify.*?/i', $c)); // if run admin:minify in `admin/helpers/terminal/artisan`
     }
 
     /**
@@ -63,11 +71,7 @@ class IframeTabsServiceProvider extends ServiceProvider
             }
         });
 
-        $c = request('c', '');
-
-        if (!$this->app->runningInConsole()
-            && (!$c || !preg_match('/.*?admin:minify.*?/i', $c)) // if run admin:minify in `admin/helpers/terminal/artisan`
-        ) {
+        if ($this->inWeb()) {
 
             Admin::booted(function () use ($layer_path) {
 
