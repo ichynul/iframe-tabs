@@ -169,10 +169,8 @@
                 icon: '<i class="fa ' + window.home_icon + '"></i>'
             });
         } else {
-            if (location.href == window.iframes_index) {
-                location.href = window.home_uri;
-                $('body').html('....');
-            }
+            location.href = window.home_uri;
+            $('body').html('....');
         }
 
         $('body').on('click', '.main-header a.logo', function() {
