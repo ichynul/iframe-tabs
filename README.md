@@ -18,6 +18,8 @@ $ php artisan admin:import iframe-tabs
 
 ## Update it
 
+[2019-10-19] 修复左边菜单很多的时候上下滚动无效的bug#32#29#21.修改了dashboard.css样式，升级后记得`php artisan vendor:publish --tag=iframe-tabs --force`更新一下样式.
+
 (本扩展依赖一些 js 和 css 文件，composer update 若版本号有变请强制发布资源，可能是更新了某些样式)
 
 After `composer update` , if version of this extension changed :
