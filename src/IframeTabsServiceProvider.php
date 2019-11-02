@@ -257,8 +257,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                 return false;
             }
         });
-
-        if ((top.bind_urls =='new_tab' || top.bind_urls =='popup') && $(".box-body table.table").size())
+        if ((top.bind_urls =='new_tab' || top.bind_urls =='popup') && top.bind_selecter)
         {
             $(top.bind_selecter).click(function(){
                 var url = $(this).attr('href');
@@ -279,13 +278,13 @@ class IframeTabsServiceProvider extends ServiceProvider
                     icon = $(this).find('i.fa').prop("outerHTML");
                 }
 
-                var title = ($(this).text() || '').trim();
+                var title = ($(this).text() || $(this).attr('title') || '').trim();
 
                 var tab_id = getCurrentId();
 
                 if(!tab_id)
                 {
-                    return true;
+                   // return true;
                 }
 
                 url += (url.indexOf('?')>-1? '&':'?') + '_ifraem_id_=' + tab_id;
@@ -296,10 +295,13 @@ class IframeTabsServiceProvider extends ServiceProvider
 
                 if (!tab)
                 {
-                    return true;
+                    //return true;
                 }
 
-                title = ' ' + tab.text() + (title ? '-' + title : '');
+                if(tab)
+                {
+                    title = ' ' + tab.text() + (title ? '-' + title : '');
+                }
 
                 if(top.bind_urls == 'popup')
                 {
