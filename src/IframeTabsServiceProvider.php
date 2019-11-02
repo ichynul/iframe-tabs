@@ -260,7 +260,7 @@ class IframeTabsServiceProvider extends ServiceProvider
 
         if ((top.bind_urls =='new_tab' || top.bind_urls =='popup') && $(".box-body table.table").size())
         {
-            $(".box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success").click(function(){
+            $(top.bind_selecter).click(function(){
                 var url = $(this).attr('href');
                 if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
                     return;

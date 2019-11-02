@@ -38,6 +38,7 @@ class IframeTabsController extends Controller
             'iframes_index' => admin_url(),
             'tabs_left' => IframeTabs::config('tabs_left', '42'),
             'bind_urls' => IframeTabs::config('bind_urls', 'none'),
+            'bind_selecter' => IframeTabs::config('bind_selecter', '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success'),
         ];
 
         Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) use ($items) {
@@ -76,6 +77,11 @@ class IframeTabsController extends Controller
                     'force_login_in_top' => true,
                     // tabs left offset
                     'tabs_left'  => 42,
+                    // bind click event of table actions [edit / view]  
+                    'bind_urls' => 'popup', //[ popup / new_tab / none]
+                    //table actions dom selecter
+                    'bind_selecter' => '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success',
+                    //.box-body table.table tr>td a,.box-header .pull-right .btn-success
                 ]
             ],</pre>");
     }

@@ -22,6 +22,7 @@
         window.iframes_index = '{{ $iframes_index }}';
         window.tabs_left = '{{ $tabs_left }}';
         window.bind_urls = '{{ $bind_urls }}';
+        window.bind_selecter = '{{ $bind_selecter }}';
 
         window.openPop = function(url, title) {
             layer.open({
