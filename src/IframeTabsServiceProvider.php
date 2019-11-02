@@ -303,7 +303,14 @@ class IframeTabsServiceProvider extends ServiceProvider
 
                 if(top.bind_urls == 'popup')
                 {
-                    openPop(url, icon + title);
+                    var area = false;
+                    var popw = $(this).attr('popw');
+                    var poph = $(this).attr('poph');
+                    if(popw && poph)
+                    {
+                        area = [popw, poph];
+                    }
+                    openPop(url, icon + title, area);
                 }
                 else
                 {
@@ -342,7 +349,10 @@ class IframeTabsServiceProvider extends ServiceProvider
             }
         }
 
-        function openPop(url, title) {
+        function openPop(url, title ,area) {
+            if (!area) {
+                area = ['100%', '100%'];
+            }
             layer.open({
                 content: url,
                 type: 2,
@@ -350,7 +360,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                 anim: 2,
                 closeBtn: 1,
                 shade: false,
-                area: ['100%', '100%'],
+                area: area,
             });
         }
 EOT;

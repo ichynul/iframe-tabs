@@ -74,8 +74,8 @@ Add a config in `config/admin.php`:
             // bind click event of table actions [edit / view]  
             'bind_urls' => 'popup', //[ popup / new_tab / none]
             //table actions dom selecter
-            'bind_selecter' => '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success,.pupop',
-            //table action links [view edit] and create button ,and any thing has class pupop : <a class="pupop" href="someurl" >mylink</a>
+            'bind_selecter' => '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success,.popup',
+            //table action links [view edit] and create button ,and any thing has class pupop : <a class="pupop" popw="400px" poph="200px" href="someurl">mylink</a>
         ]
     ],
 
