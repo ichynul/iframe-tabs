@@ -80,7 +80,7 @@ class IframeTabsController extends Controller
                     // bind click event of table actions [edit / view]  
                     'bind_urls' => 'popup', //[ popup / new_tab / none]
                     //table actions dom selecter
-                    'bind_selecter' => '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success',
+                    'bind_selecter' => '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success,.pupop',
                     //.box-body table.table tr>td a,.box-header .pull-right .btn-success
                 ]
             ],</pre>");
