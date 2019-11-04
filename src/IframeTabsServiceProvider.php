@@ -157,8 +157,6 @@ class IframeTabsServiceProvider extends ServiceProvider
         $_success_message_ = $session->pull('_success_message_', 'success');
         $_list_after_save_ = $session->pull('_list_after_save_', '');
 
-        IframeTabs::config('layer_path');
-
         $script = <<<EOT
 
         var _ifraem_id_ = '{$_ifraem_id_}';
@@ -328,7 +326,7 @@ class IframeTabsServiceProvider extends ServiceProvider
             $('form').append('<input type="hidden" name="_ifraem_id_" value="' + _ifraem_id_ + '" />');
         }
 
-        function getCurrentId()
+        window.getCurrentId = function()
         {
             var iframes = top.document.getElementsByTagName("iframe");
             for(var i in iframes)
@@ -341,7 +339,7 @@ class IframeTabsServiceProvider extends ServiceProvider
             return '';
         }
 
-        function doStop()
+        window.doStop = function()
         {
             if(!!(window.attachEvent && !window.opera)){
                 document.execCommand("stop");
@@ -351,7 +349,7 @@ class IframeTabsServiceProvider extends ServiceProvider
             }
         }
 
-        function openPop(url, title ,area) {
+        window.openPop = function(url, title ,area) {
             if (!area) {
                 area = ['100%', '100%'];
             }
@@ -364,6 +362,22 @@ class IframeTabsServiceProvider extends ServiceProvider
                 shade: false,
                 area: area,
             });
+        }
+
+        window.closePop = function()
+        {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        }
+
+        window.closeTab = function()
+        {
+            var tab_id = getCurrentId();
+            if(tab_id)
+            {
+                top.closeTabByPageId(tab_id.replace(/^iframe_/i, ''));
+                doStop();
+            }
         }
 EOT;
         Admin::script($script);
