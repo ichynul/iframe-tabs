@@ -1,9 +1,7 @@
 @extends('admin::index', ['header' => $header])
 
 @section('content')
-<div class="content-iframe">
-    <div class="tab-content " id="tab-content">
-    </div>
+<div class="tab-content " id="tab-content">
 </div>
 
 <script>
@@ -206,7 +204,7 @@
             });
         }
 
-        $('.content-wrapper,#app,.content-iframe,#tab-content').css('height','100%');
+        $('.content-wrapper,#app,#tab-content').css('height','100%');
 
     });
 </script>

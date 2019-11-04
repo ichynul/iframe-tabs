@@ -184,7 +184,7 @@ body,
     margin-left: 230px;
 }
 
-.content-wrapper,#app,.content-iframe,#tab-content,.tab-pane
+.content-wrapper,#app,#tab-content,.tab-pane
 {
     height: 100%;
 }
