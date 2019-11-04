@@ -236,3 +236,8 @@ body,
 .navbar-nav > .user-menu .user-image {
     margin-top: 7px !important;
 }
+
+.navbar-nav
+{
+    float: left;
+}
