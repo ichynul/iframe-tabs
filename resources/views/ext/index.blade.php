@@ -198,6 +198,16 @@
             $('.container-refresh').off('click');
         }, 1000);
 
+        window.handleIframeContent = function ()
+        {
+            $(".tab_iframe").css({
+                height: "100%",
+                width: "100%"
+            });
+        }
+
+        $('.content-wrapper,#app,.content-iframe,#tab-content').css('height','100%');
+
     });
 </script>
 

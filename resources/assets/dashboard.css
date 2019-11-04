@@ -184,8 +184,13 @@ body,
     margin-left: 230px;
 }
 
-#tab-content,
-.tab-pane {
+.content-wrapper,#app,.content-iframe,#tab-content,.tab-pane
+{
+    height: 100%;
+}
+
+.tab-pane iframe.tab_iframe
+{
     height: 100%;
 }
 

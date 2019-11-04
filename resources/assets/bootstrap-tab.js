@@ -111,14 +111,13 @@ var addTabs = function (options) {
             }
             var $iframe = $("<iframe></iframe>").attr("src", options.url).css({
                 "width": "100%",
-                "height": "800px"
+                "height": "100%"
             }).attr("frameborder", "no").attr("id", "iframe_" + pageId).addClass("tab_iframe").attr(pageIdField, pageId);
             //frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes"  allowtransparency="yes"
 
             //iframe 加载完成事件
 
             $iframe.load(function () {
-                handleIframeContent(); //修正高度
                 layer.close(load_index);
                 load_index = 0;
             });
@@ -141,25 +140,6 @@ var closeTab = function (item) {
     //它们都有data-id属性,获取完成之后就没事了
     var pageId = getPageId(item);
     closeTabByPageId(pageId);
-};
-
-//初始化iframe内容页高度
-var handleIframeContent = function () {
-    var ht = $(window).height(); //获取浏览器窗口的整体高度；
-
-    var $footer = $(".main-footer");
-    var $header = $(".main-header");
-
-    var height = getViewPort().height - $footer.outerHeight() - $header.outerHeight();
-
-    $(".tab_iframe").css({
-        height: height,
-        width: "100%"
-    });
-
-    //var width = App.getViewPort().width- $(".page-sidebar-menu").width();
-    /*$(".tab_iframe").css({
-     });*/
 };
 
 function getViewPort() {
