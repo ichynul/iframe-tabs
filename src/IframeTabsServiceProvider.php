@@ -84,6 +84,18 @@ class IframeTabsServiceProvider extends ServiceProvider
                     \View::prependNamespace('admin', __DIR__ . '/../resources/views/index');
 
                     Admin::css(IframeTabs::config('tabs_css', 'vendor/laravel-admin-ext/iframe-tabs/dashboard.css'));
+
+                    $layout = config('admin.layout', ['fixed']);
+                    if (count($layout) == 1) { //['fixed sidebar-mini']
+                        $layout = explode(' ', $layout[0]);
+                    }
+                    //['fixed', 'sidebar-mini']
+                    if (count($layout) && !in_array('layout-boxed', $layout) && !in_array('fixed', $layout)) {
+
+                        array_push($layout, 'fixed');
+
+                        config(['admin.layout' => $layout]);
+                    }
                 } else {
 
                     $this->initSubPage();
@@ -96,7 +108,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                     //Override content style ,reset style of '#pjax-container' margin-left:0
                     Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
 
-                    config(['admin.layout' => ['fixed']]);// iframe page no need layout ,set default to fixed .
+                    config(['admin.layout' => ['fixed']]); // iframe page no need layout ,set default to fixed .
                 }
 
                 config(['admin.minify_assets' => false]);
