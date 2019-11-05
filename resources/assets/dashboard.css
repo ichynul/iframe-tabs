@@ -2,11 +2,7 @@
 .main-sidebar {
     display: block;
 }
-.main-sidebar
-{
-    height: 100%;
-    overflow-y: auto;
-}
+
 .main-footer {
     display: none;
 }

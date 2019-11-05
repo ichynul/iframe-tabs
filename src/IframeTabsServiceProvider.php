@@ -95,9 +95,11 @@ class IframeTabsServiceProvider extends ServiceProvider
 
                     //Override content style ,reset style of '#pjax-container' margin-left:0
                     Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
+
+                    config(['admin.layout' => ['fixed']]);// iframe page no need layout ,set default to fixed .
                 }
 
-                config(['admin.minify_assets' => false, 'admin.layout' => ['fixed']]);
+                config(['admin.minify_assets' => false]);
             });
         }
     }
