@@ -97,7 +97,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                     Admin::css('vendor/laravel-admin-ext/iframe-tabs/content.css');
                 }
 
-                config(['admin.minify_assets' => false]);
+                config(['admin.minify_assets' => false, 'admin.layout' => ['fixed']]);
             });
         }
     }

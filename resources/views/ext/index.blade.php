@@ -7,6 +7,13 @@
 <script>
 
     $(function () {
+
+        //Note! You cannot use both layout-boxed and fixed at the same time. Anything else can be mixed together.
+        if(!$('body').hasClass('layout-boxed'))
+        {
+            $('body').addClass('fixed'); //layout Fixed: use the class .fixed to get a fixed header and sidebar.
+        }
+
         window.refresh_current = "{{ $trans['refresh_current'] }}";
         window.open_in_new = "{{ $trans['open_in_new'] }}";
         window.open_in_pop = "{{ $trans['open_in_pop'] }}";
@@ -137,7 +144,10 @@
                 icon = $(this).find('i.fa').prop("outerHTML");
             }
             var span = $(this).find('span');
-            var id = url == window.home_uri ? '_admin_dashboard' : url.replace(/\W/g, '_');
+            
+            var path = url.replace(/^(https?:\/\/[^\/]+?)(\/.+)$/,'$2');
+
+            var id = path == window.home_uri ? '_admin_dashboard' : path.replace(/\W/g, '_');
             addTabs({
                 id: id,
                 title: span.size() ? span.text() : $(this).text().length ? $(this).text() : '*',
