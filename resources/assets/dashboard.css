@@ -237,3 +237,9 @@ body,
 {
     float: left;
 }
+
+.main-header .nav.navbar-nav.hidden-sm,
+.main-header .nav.navbar-nav.visible-lg-block
+{
+    display: block !important;
+}
