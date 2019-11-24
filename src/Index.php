@@ -11,7 +11,7 @@ class Index extends Content
      *
      * @return string
      */
-    public function render(): string
+    public function render()
     {
         $items = [
             'header' => $this->title,
