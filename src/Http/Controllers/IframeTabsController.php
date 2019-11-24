@@ -2,14 +2,16 @@
 
 namespace Ichynul\IframeTabs\Http\Controllers;
 
+use Ichynul\IframeTabs\Index;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
+use \Encore\Admin\Widgets\Navbar;
 use Ichynul\IframeTabs\IframeTabs;
 use Illuminate\Routing\Controller;
 
 class IframeTabsController extends Controller
 {
-    public function index()
+    public function index(Index $index)
     {
         if (!IframeTabs::boot()) {
             return redirect(admin_base_path('dashboard'));
@@ -41,12 +43,14 @@ class IframeTabsController extends Controller
             'bind_selecter' => IframeTabs::config('bind_selecter', '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success'),
         ];
 
-        Admin::navbar(function (\Encore\Admin\Widgets\Navbar $navbar) use ($items) {
+        \View::share($items);
+
+        Admin::navbar(function (Navbar $navbar) {
             $navbar->left(view('iframe-tabs::ext.tabs'));
-            $navbar->right(view('iframe-tabs::ext.options', $items));
+            $navbar->right(view('iframe-tabs::ext.options'));
         });
 
-        return view('iframe-tabs::ext.index', $items);
+        return $index;
     }
 
     public function dashboard(Content $content)
@@ -77,7 +81,7 @@ class IframeTabsController extends Controller
                     'force_login_in_top' => true,
                     // tabs left offset
                     'tabs_left'  => 42,
-                    // bind click event of table actions [edit / view]  
+                    // bind click event of table actions [edit / view]
                     'bind_urls' => 'popup', //[ popup / new_tab / none]
                     //table actions dom selecter
                     'bind_selecter' => '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success,.popup',
