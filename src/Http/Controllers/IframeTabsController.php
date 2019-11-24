@@ -2,16 +2,15 @@
 
 namespace Ichynul\IframeTabs\Http\Controllers;
 
-use Ichynul\IframeTabs\Index;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
-use \Encore\Admin\Widgets\Navbar;
 use Ichynul\IframeTabs\IframeTabs;
 use Illuminate\Routing\Controller;
+use \Encore\Admin\Widgets\Navbar;
 
 class IframeTabsController extends Controller
 {
-    public function index(Index $index)
+    public function index(Content $content)
     {
         if (!IframeTabs::boot()) {
             return redirect(admin_base_path('dashboard'));
@@ -50,7 +49,7 @@ class IframeTabsController extends Controller
             $navbar->right(view('iframe-tabs::ext.options'));
         });
 
-        return $index;
+        return $content;
     }
 
     public function dashboard(Content $content)
