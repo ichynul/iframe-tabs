@@ -29,12 +29,14 @@
         window.bind_urls = '{{ $bind_urls }}';
         window.bind_selecter = '{{ $bind_selecter }}';
 
+        window.Pops = [];
+
         window.openPop = function (url, title, area) {
             if (!area) {
                 area = [$('#tab-content').width() + 'px', ($('#tab-content').height() - 5) + 'px'];
             }
             
-            layer.open({
+            var index = layer.open({
                 content: url,
                 type: 2,
                 title: title,
@@ -45,6 +47,9 @@
                 area: area,
                 //offset: 'rb'
             });
+            window.Pops.push(index);
+
+            return index;
         }
 
         window.openTab = function (url, title, icon, page_id, close, urlType) {

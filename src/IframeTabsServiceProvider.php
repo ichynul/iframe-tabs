@@ -179,6 +179,8 @@ class IframeTabsServiceProvider extends ServiceProvider
 
         var _list_after_save_ = '{$_list_after_save_}';
 
+        window.Pops = [];
+
         if (_list_ifraem_id_ && !_list_after_save_)
         {
             var iframes = top.document.getElementsByTagName("iframe");
@@ -367,7 +369,7 @@ class IframeTabsServiceProvider extends ServiceProvider
             if (!area) {
                 area = ['100%', '100%'];
             }
-            layer.open({
+            var index = layer.open({
                 content: url,
                 type: 2,
                 title: title,
@@ -376,6 +378,10 @@ class IframeTabsServiceProvider extends ServiceProvider
                 shade: false,
                 area: area,
             });
+
+            window.Pops.push(index);
+
+            return index;
         }
 
         window.closePop = function()
