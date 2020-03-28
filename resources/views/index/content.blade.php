@@ -1,5 +1,4 @@
-@extends('admin::index', ['header' => $header])
-
+@extends('admin::index', ['header' => strip_tags($header)])
 @section('content')
 <div class="tab-content " id="tab-content">
 </div>
