@@ -68,6 +68,7 @@ Add a config in `config/admin.php`:
              */
             'pass_urls' => ['/auth/logout', '/auth/lock'],
             // When login session state of a tab-page was expired , force top-level window goto login page .
+            //登录超时是是否强制整体跳转到登录页面，设为false的话只在触发超时登录的页面跳转，最大程度保留已打开页面。
             'force_login_in_top' => true,
             // tabs left offset
             'tabs_left'  => 42,
