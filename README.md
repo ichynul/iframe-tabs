@@ -18,7 +18,7 @@ $ php artisan admin:import iframe-tabs
 
 ## Update it
 
-[2019-10-19] 修复左边菜单很多的时候上下滚动无效的bug#32#29#21.修改了dashboard.css样式，升级后记得`php artisan vendor:publish --tag=iframe-tabs --force`更新一下样式.
+[2020-06-05] 适配[grid_action_class],需要更新`bind_selecter`参照如下面的设置。
 
 (本扩展依赖一些 js 和 css 文件，composer update 若版本号有变请强制发布资源，可能是更新了某些样式)
 
@@ -31,14 +31,6 @@ php artisan vendor:publish --tag=iframe-tabs --force
 ```
 
 This will override css and js fiels to `/public/vendor/laravel-admin-ext/iframe-tabs/`
-
-Or you can and a script in `composer.json` :
-
-```json
-"scripts": {
-    "post-update-cmd": "php artisan vendor:publish --tag=iframe-tabs --force",
-}
-```
 
 ## Config
 
@@ -75,7 +67,7 @@ Add a config in `config/admin.php`:
             // bind click event of table actions [edit / view]  
             'bind_urls' => 'popup', //[ popup / new_tab / none]
             //table actions dom selecter
-            'bind_selecter' => '.box-body table.table tbody a.grid-row-view,.box-body table.table tbody a.grid-row-edit,.box-header .pull-right .btn-success,.popup',
+            'bind_selecter' => 'a.grid-row-view,a.grid-row-edit,.column-__actions__ ul.dropdown-menu a,.box-header .pull-right .btn-success,.popup',
             //table action links [view edit] and create button ,and any thing has class pupop : <a class="pupop" popw="400px" poph="200px" href="someurl">mylink</a>
         ]
     ],

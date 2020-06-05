@@ -166,6 +166,8 @@ class IframeTabsServiceProvider extends ServiceProvider
     {
         $session = request()->session();
 
+        $_pjax = request()->input('_pjax', '');
+
         $_ifraem_id_ = request()->input('_ifraem_id_', '');
         $_list_ifraem_id_ = $session->pull('_list_ifraem_id_', '');
         $_success_message_ = $session->pull('_success_message_', 'success');
@@ -174,6 +176,8 @@ class IframeTabsServiceProvider extends ServiceProvider
         $script = <<<EOT
 
         var _ifraem_id_ = '{$_ifraem_id_}';
+
+        var _pjax = '{$_pjax}';
 
         var _list_ifraem_id_ = '{$_list_ifraem_id_}';
 
@@ -219,184 +223,168 @@ class IframeTabsServiceProvider extends ServiceProvider
             return;
         }
 
-        $('body').addClass('iframe-content');
-
-        if(!$('button#totop'))
-        {
-            $('.wrapper').append('<span id="totop" class="fa fa-upload" title="Back to top" style="display:none;"></span>');
-
-            $(window).scroll(function() {
-                if ($(window).scrollTop() > 400) {
-                    $("#totop").fadeIn(300);
-                } else {
-                    $("#totop").fadeOut(300);
-                }
-            });
-
-            $("#totop").click(function() {
-                if ($('html').scrollTop()) {
-                    $('html').animate({
-                        scrollTop: 0
-                    }, 300);
-                    return false;
-                }
-                $('body').animate({
-                    scrollTop: 0
-                }, 300);
-                return false;
-            });
-        }
-
-        if($('#terminal-box').size())
-        {
-            // fix laravel-admin-extensions/helpers terminal
-            $(window).load(function(){
-                $('#terminal-box,.slimScrollDiv').css({
-                    height: $('#pjax-container').height() - 247 +'px'
-                });
-            });
-        }
-
-        $('body').on('click', '.breadcrumb li a', function() {
-            var url = $(this).attr('href');
-            if (url == top.iframes_index) {
-                top.addTabs({
-                    id: '_admin_dashboard',
-                    title: top.home_title,
-                    close: false,
-                    url: url,
-                    urlType: 'absolute',
-                    icon: '<i class="fa ' + top.home_icon + '"></i>'
-                });
-                return false;
-            }
-        });
-        if ((top.bind_urls =='new_tab' || top.bind_urls =='popup') && top.bind_selecter)
-        {
-            $(top.bind_selecter).click(function(){
-                var url = $(this).attr('href');
-                if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
-                    return;
-                }
-
-                if ($(this).attr('target') == '_blank') {
-                    return;
-                }
-
-                if ($(this).hasClass('iframes-pass-url')) {
-                    return;
-                }
-
-                var icon = '<i class="fa fa-file-text"></i>';
-                if ($(this).find('i.fa').size()) {
-                    icon = $(this).find('i.fa').prop("outerHTML");
-                }
-
-                var title = ($(this).text() || $(this).attr('title') || '').trim();
-
-                var tab_id = getCurrentId();
-
-                if(!tab_id)
-                {
-                   // return true;
-                }
-
-                url += (url.indexOf('?')>-1? '&':'?') + '_ifraem_id_=' + tab_id;
-
-                tab_id = tab_id.replace(/^iframe_(.+)$/ ,'$1');
-
-                var tab = top.findTabTitle(tab_id);
-
-                if (!tab)
-                {
-                    //return true;
-                }
-
-                if(tab)
-                {
-                    title = ' ' + tab.text() + (title ? '-' + title : '');
-                }
-
-                if(top.bind_urls == 'popup')
-                {
-                    var area = false;
-                    var popw = $(this).attr('popw');
-                    var poph = $(this).attr('poph');
-                    if(popw && poph)
-                    {
-                        area = [popw, poph];
-                    }
-                    openPop(url, icon + title, area);
-                }
-                else
-                {
-                    top.openTab(url, title || '*', icon);
-                }
-
-                return false;
-            });
-        }
-
         if(_ifraem_id_ && $('form').size())
         {
             $('form').append('<input type="hidden" name="_ifraem_id_" value="' + _ifraem_id_ + '" />');
         }
 
-        window.getCurrentId = function()
+        if(!_pjax)
         {
-            var iframes = top.document.getElementsByTagName("iframe");
-            for(var i in iframes)
+            $('body').addClass('iframe-content');
+
+            if($('#terminal-box').size())
             {
-                if (iframes[i].contentWindow == window)
-                {
-                    return '' + iframes[i].id;
+                // fix laravel-admin-extensions/helpers terminal
+                $(window).load(function(){
+                    $('#terminal-box,.slimScrollDiv').css({
+                        height: $('#pjax-container').height() - 247 +'px'
+                    });
+                });
+            }
+
+            $('body').on('click', '.breadcrumb li a', function() {
+                var url = $(this).attr('href');
+                if (url == top.iframes_index) {
+                    top.addTabs({
+                        id: '_admin_dashboard',
+                        title: top.home_title,
+                        close: false,
+                        url: url,
+                        urlType: 'absolute',
+                        icon: '<i class="fa ' + top.home_icon + '"></i>'
+                    });
+                    return false;
                 }
-            }
-            return '';
-        }
-
-        window.doStop = function()
-        {
-            if(!!(window.attachEvent && !window.opera)){
-                document.execCommand("stop");
-            }
-            else {
-                window.stop();
-            }
-        }
-
-        window.openPop = function(url, title ,area) {
-            if (!area) {
-                area = ['100%', '100%'];
-            }
-            var index = layer.open({
-                content: url,
-                type: 2,
-                title: title,
-                anim: 2,
-                closeBtn: 1,
-                shade: false,
-                area: area,
             });
 
-            window.Pops.push(index);
-
-            return index;
-        }
-
-        window.closePop = function()
-        {
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.layer.close(index);
-        }
-
-        window.closeTab = function()
-        {
-            var tab_id = getCurrentId();
-            if(tab_id)
+            if ((top.bind_urls =='new_tab' || top.bind_urls =='popup') && top.bind_selecter)
             {
-                top.closeTabByPageId(tab_id.replace(/^iframe_/i, ''));
-                doStop();
+                
+                $('body').on('click', top.bind_selecter, function() {
+                    var url = $(this).attr('href');
+                    if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
+                        return;
+                    }
+
+                    if ($(this).attr('target') == '_blank') {
+                        return;
+                    }
+
+                    if ($(this).hasClass('iframes-pass-url')) {
+                        return;
+                    }
+
+                    var icon = '<i class="fa fa-file-text"></i>';
+                    if ($(this).find('i.fa').size()) {
+                        icon = $(this).find('i.fa').prop("outerHTML");
+                    }
+
+                    var title = ($(this).text() || $(this).attr('title') || '').trim();
+
+                    var tab_id = getCurrentId();
+
+                    if(!tab_id)
+                    {
+                    // return true;
+                    }
+
+                    url += (url.indexOf('?')>-1? '&':'?') + '_ifraem_id_=' + tab_id;
+
+                    tab_id = tab_id.replace(/^iframe_(.+)$/ ,'$1');
+
+                    var tab = top.findTabTitle(tab_id);
+
+                    if (!tab)
+                    {
+                        //return true;
+                    }
+
+                    if(tab)
+                    {
+                        title = ' ' + tab.text() + (title ? '-' + title : '');
+                    }
+
+                    if(top.bind_urls == 'popup')
+                    {
+                        var area = false;
+                        var popw = $(this).attr('popw');
+                        var poph = $(this).attr('poph');
+                        if(popw && poph)
+                        {
+                            area = [popw, poph];
+                        }
+                        openPop(url, icon + title, area);
+                    }
+                    else
+                    {
+                        top.openTab(url, title || '*', icon);
+                    }
+
+                    var toggle = false;
+                    if ($(this).parents('.grid-dropdown-actions').size() && (toggle = $(this).parents('.grid-dropdown-actions').find('.dropdown-toggle'))) {
+                        toggle.trigger('click');
+                    }
+
+                    return false;
+                });
+            }
+
+            window.getCurrentId = function()
+            {
+                var iframes = top.document.getElementsByTagName("iframe");
+                for(var i in iframes)
+                {
+                    if (iframes[i].contentWindow == window)
+                    {
+                        return '' + iframes[i].id;
+                    }
+                }
+                return '';
+            }
+
+            window.doStop = function()
+            {
+                if(!!(window.attachEvent && !window.opera)){
+                    document.execCommand("stop");
+                }
+                else {
+                    window.stop();
+                }
+            }
+
+            window.openPop = function(url, title ,area) {
+                if (!area) {
+                    area = ['100%', '100%'];
+                }
+                var index = layer.open({
+                    content: url,
+                    type: 2,
+                    title: title,
+                    anim: 2,
+                    closeBtn: 1,
+                    shade: false,
+                    area: area,
+                });
+
+                window.Pops.push(index);
+
+                return index;
+            }
+
+            window.closePop = function()
+            {
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
+            }
+
+            window.closeTab = function()
+            {
+                var tab_id = getCurrentId();
+                if(tab_id)
+                {
+                    top.closeTabByPageId(tab_id.replace(/^iframe_/i, ''));
+                    doStop();
+                }
             }
         }
 EOT;
