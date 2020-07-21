@@ -172,6 +172,7 @@ class IframeTabsServiceProvider extends ServiceProvider
         $_list_ifraem_id_ = $session->pull('_list_ifraem_id_', '');
         $_success_message_ = $session->pull('_success_message_', 'success');
         $_list_after_save_ = $session->pull('_list_after_save_', '');
+        $layer_size = IframeTabs::config('layer_size', '1100px,98%');
 
         $script = <<<EOT
 
@@ -182,6 +183,8 @@ class IframeTabsServiceProvider extends ServiceProvider
         var _list_ifraem_id_ = '{$_list_ifraem_id_}';
 
         var _list_after_save_ = '{$_list_after_save_}';
+        
+        var layer_size = '{$layer_size}';
 
         window.Pops = [];
 
@@ -306,7 +309,7 @@ class IframeTabsServiceProvider extends ServiceProvider
 
                     if(top.bind_urls == 'popup')
                     {
-                        var area = false;
+                        var area = layer_size.split(',');
                         var popw = $(this).attr('popw');
                         var poph = $(this).attr('poph');
                         if(popw && poph)
