@@ -69,6 +69,7 @@ Add a config in `config/admin.php`:
             //table actions dom selecter
             'bind_selecter' => 'a.grid-row-view,a.grid-row-edit,.column-__actions__ ul.dropdown-menu a,.box-header .pull-right .btn-success,.popup',
             //table action links [view edit] and create button ,and any thing has class pupop : <a class="pupop" popw="400px" poph="200px" href="someurl">mylink</a>
+            'layer_size' => '1100px,98%',
         ]
     ],
 
