@@ -64,11 +64,11 @@ Add a config in `config/admin.php`:
             'force_login_in_top' => true,
             // tabs left offset
             'tabs_left'  => 42,
-            // bind click event of table actions [edit / view]  
+            // bind click event of table actions [edit / view / create]  
             'bind_urls' => 'popup', //[ popup / new_tab / none]
-            //table actions dom selecter
+            //table actions dom selecter, [view / edit / create]buttons ,and any thing has class pupop : <a class="pupop" popw="400px" poph="200px" href="someurl">mylink</a>
             'bind_selecter' => 'a.grid-row-view,a.grid-row-edit,.column-__actions__ ul.dropdown-menu a,.box-header .pull-right .btn-success,.popup',
-            //table action links [view edit] and create button ,and any thing has class pupop : <a class="pupop" popw="400px" poph="200px" href="someurl">mylink</a>
+            //layer popup size
             'layer_size' => '1100px,98%',
         ]
     ],
