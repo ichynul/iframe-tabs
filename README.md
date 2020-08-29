@@ -131,3 +131,7 @@ License
 ---
 
 Licensed under [The MIT License (MIT)](LICENSE).
+此扩展基本稳定了，除非laravel-admin的UI有较大变化。鉴于本人实际中使用`laravel-admin`不是太多，后续不提供新的功能特性，只修复bug。
+【广告】
+使用tp框架的小伙伴可以尝试一下我新的后台开发框架：https://gitee.com/ichynul/myadmin
+参照laravel-admih封装了`form`,`table`等
