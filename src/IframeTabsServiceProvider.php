@@ -28,6 +28,10 @@ class IframeTabsServiceProvider extends ServiceProvider
 
     protected function inWeb()
     {
+        if (IframeTabs::config('web_in_cli' ,false)) {
+            return true;
+        }
+
         $c = request('c', '');
 
         return !$this->app->runningInConsole()

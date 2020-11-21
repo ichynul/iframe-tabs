@@ -70,6 +70,8 @@ Add a config in `config/admin.php`:
             'bind_selecter' => 'a.grid-row-view,a.grid-row-edit,.column-__actions__ ul.dropdown-menu a,.box-header .pull-right .btn-success,.popup',
             //layer popup size
             'layer_size' => '1100px,98%',
+            // if run web in `cli` mode ,for example `swoole`，如果是以命令行方式运行网站，如`swoole`
+            'web_in_cli' => false
         ]
     ],
 
