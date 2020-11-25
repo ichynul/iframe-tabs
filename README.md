@@ -18,19 +18,11 @@ $ php artisan admin:import iframe-tabs
 
 ## Update it
 
-[2020-06-05] 适配[grid_action_class],需要更新`bind_selecter`参照如下面的设置。
-
-(本扩展依赖一些 js 和 css 文件，composer update 若版本号有变请强制发布资源，可能是更新了某些样式)
-
-After `composer update` , if version of this extension changed :
-
-Run
-
 ```
 php artisan vendor:publish --tag=iframe-tabs --force
 ```
 
-This will override css and js fiels to `/public/vendor/laravel-admin-ext/iframe-tabs/`
+This will override css and js files to `/public/vendor/laravel-admin-ext/iframe-tabs/`
 
 ## Config
 
@@ -133,7 +125,11 @@ License
 ---
 
 Licensed under [The MIT License (MIT)](LICENSE).
-此扩展基本稳定了，除非laravel-admin的UI有较大变化。鉴于本人实际中使用`laravel-admin`不是太多，后续不提供新的功能特性，只修复bug。
-【广告】
-使用tp框架的小伙伴可以尝试一下我新的后台开发框架：https://gitee.com/ichynul/myadmin
+
+此扩展基本稳定了，除非`laravel-admin`的UI有较大变化。鉴于本人实际中使用`laravel-admin`不是太多，后续不提供新的功能特性，只修复bug。
+
+## 广告
+
+使用tp框架的小伙伴可以尝试一下我新的后台开发框架：https://gitee.com/ichynul/myadmin  
+
 参照laravel-admih封装了`form`,`table`等
