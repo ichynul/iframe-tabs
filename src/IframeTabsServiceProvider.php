@@ -188,7 +188,11 @@ class IframeTabsServiceProvider extends ServiceProvider
 
         var _list_after_save_ = '{$_list_after_save_}';
         
-        var layer_size = '{$layer_size}';
+        var layer_size = window.layer_size || '{$layer_size}';
+
+        var bind_urls = window.bind_urls || top.bind_urls;
+
+        var var bind_selecter = window.bind_selecter || top.bind_selecter;
 
         window.Pops = [];
 
@@ -203,7 +207,7 @@ class IframeTabsServiceProvider extends ServiceProvider
 
                     openner.$.pjax.reload('#pjax-container');
 
-                    if (top.bind_urls =='new_tab')
+                    if (bind_urls =='new_tab')
                     {
                         var tab_id = getCurrentId();
                         if(tab_id)
@@ -213,7 +217,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                             doStop();
                         }
                     }
-                    else if (top.bind_urls =='popup')
+                    else if (bind_urls =='popup')
                     {
                         var index = parent.layer.getFrameIndex(window.name);
                         if(index)
@@ -264,10 +268,10 @@ class IframeTabsServiceProvider extends ServiceProvider
                 }
             });
 
-            if ((top.bind_urls =='new_tab' || top.bind_urls =='popup') && top.bind_selecter)
+            if ((bind_urls =='new_tab' || bind_urls =='popup') && bind_selecter)
             {
                 
-                $('body').on('click', top.bind_selecter, function() {
+                $('body').on('click', bind_selecter, function() {
                     var url = $(this).attr('href');
                     if (!url || url == '#' || /^javascript|\(|\)/i.test(url)) {
                         return;
@@ -311,7 +315,7 @@ class IframeTabsServiceProvider extends ServiceProvider
                         title = ' ' + tab.text() + (title ? '-' + title : '');
                     }
 
-                    if(top.bind_urls == 'popup')
+                    if(bind_urls == 'popup')
                     {
                         var area = layer_size.split(',');
                         var popw = $(this).attr('popw');
