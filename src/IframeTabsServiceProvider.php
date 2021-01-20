@@ -192,7 +192,7 @@ class IframeTabsServiceProvider extends ServiceProvider
 
         var bind_urls = window.bind_urls || top.bind_urls;
 
-        var var bind_selecter = window.bind_selecter || top.bind_selecter;
+        var bind_selecter = window.bind_selecter || top.bind_selecter;
 
         window.Pops = [];
 
